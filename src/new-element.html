@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="new-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `new-element`
+     * shell page
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class AvatarApp extends Polymer.Element {
+      static get is() { return 'new-element'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'new-element'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(NewElement.is, NewElement);
+  </script>
+</dom-module>

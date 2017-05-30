@@ -1,0 +1,83 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+<link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
+<link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
+<link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../bower_components/iron-meta/iron-meta.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+
+
+<link rel="import" href="my-icons.html">
+
+<dom-module id="avatar-app">
+  <template>
+    <style include="app-grid-style">
+      :host {
+        display: block;
+        --app-grid-columns: 3;
+        /* 50% the width of the item is equivalent to 2:1 aspect ratio*/
+        --app-grid-item-height: 100%;
+      }
+    </style>
+
+
+  <div class="app-grid" id="image" has-aspect-ratio>
+
+    <iron-image style="width:100%; height:100%; background-color: lightgray;"
+    sizing="cover" loaded="{{loaded}}" on-loaded-changed="createde" on-click="handleClick" preload fade src="http://lorempixel.com/600/400"></iron-image>
+
+
+  </div>
+
+  </template>
+
+
+
+  <script>
+    /**
+     * `avatar-app`
+     * shell page
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class AvatarApp extends Polymer.Element {
+      static get is() { return 'avatar-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'avatar-app'
+          }
+        };
+      }
+
+       createde(){
+           console.log("created");
+       }
+
+       handleClick() {
+          console.log('Ow!');
+      }
+
+      show() {
+        this.$.paese.toggle();
+      }
+
+      
+    }
+
+    window.customElements.define(AvatarApp.is, AvatarApp);
+  </script>
+</dom-module>
+
