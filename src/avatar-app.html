@@ -11,8 +11,17 @@
 <link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
+
+
 
 
 
@@ -23,20 +32,73 @@
     <style include="app-grid-style">
       :host {
         display: block;
-        --app-grid-columns: 3;
-        /* 50% the width of the item is equivalent to 2:1 aspect ratio*/
-        --app-grid-item-height: 100%;
+      
+      }
+      #page{
+         --app-grid-columns: 2;
+         --app-grid-item-height: 100px;
+      }
+      #form{
+         --app-grid-columns: 1;
+         --app-grid-item-height: 100px;
       }
     </style>
 
 
-  <div class="app-grid" id="image" has-aspect-ratio>
+  <div id="page" style="height:100vh;">
 
-    <iron-image style="width:100%; height:100%; background-color: lightgray;"
-    sizing="cover" loaded="{{loaded}}" on-loaded-changed="createde" on-click="handleClick" preload fade src="http://lorempixel.com/600/400"></iron-image>
+    <h3>Your image</h3>
 
+    <div id="myImage"></div>
+    
+    <div>
 
+      <paper-dropdown-menu label="Your Country" style="width:100%">
+        <paper-listbox slot="dropdown-content" id="countryOption" selected="{{country}}" on-click="downloadGDGList">
+          <paper-item>allosaurus</paper-item>
+          <paper-item>brontosaurus</paper-item>
+          <paper-item>carcharodontosaurus</paper-item>
+          <paper-item>diplodocus</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-dropdown-menu label="Your GDG" style="width:100%">
+        <paper-listbox slot="dropdown-content" selected="{{gdg}}" on-click="handleClick">
+          <paper-item>allosaurus</paper-item>
+          <paper-item>brontosaurus</paper-item>
+          <paper-item>carcharodontosaurus</paper-item>
+          <paper-item>diplodocus</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <div class="form-group">
+        <input type="file" id="uploadimage" accept="image/*;capture=camera">
+        <div>
+          <input type="text" readonly="" placeholder="Please select a file...">
+          <span >
+            <button type="button">
+              <i>attach_file</i>
+            </button>
+          </span>
+        </div>
+      </div> 
+
+    </div>
   </div>
+
+  <!--<iron-ajax
+    auto
+    url="https://hub.gdgx.io/api/v1/chapters/country/it?perpage=999&fields=_id,name&asc=-1"
+    method="GET"
+    handle-as="json"
+    on-response="handleResponse"
+    debounce-duration="300"></iron-ajax>-->
+
+    <!--<iron-jsonp-library
+  library-url="https://hub.gdgx.io/api/v1/chapters/country/it?perpage=999&fields=_id,name&asc=-1?callback=%%callback%%"
+  notify-event="api-load"
+  callback-name="callback"
+  library-loaded="{{loaded}}"></iron-jsonp-library>-->
 
   </template>
 
@@ -58,22 +120,48 @@
           prop1: {
             type: String,
             value: 'avatar-app'
+          },
+          country:{
+            type: Number,
+            notify:true,
           }
         };
       }
 
-       createde(){
-           console.log("created");
-       }
+      createde(){
+          console.log("created");
+      }
 
-       handleClick() {
-          console.log('Ow!');
+      callback(){
+          console.log("ajax end");
+      }
+
+      handleClick() {
+          console.log(this.gdg);
+      }
+
+      handleRespons(){
+        console.log("ajax response");
       }
 
       show() {
         this.$.paese.toggle();
       }
-
+      
+      downloadGDGList(){
+        $.ajax( { url: "https://hub.gdgx.io/api/v1/chapters/country/it?perpage=999&fields=_id,name&asc=-1",
+                  type: "GET",
+                  dataType: "jsonp",
+                  async: false,
+                  success: function(result){
+                    console.log(result);
+                  },
+                  error: function(error){
+                      console.log(error);
+                  }
+                }
+              );
+      }
       
     }
 

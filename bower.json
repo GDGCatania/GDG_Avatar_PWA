@@ -21,7 +21,12 @@
     "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
     "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0"
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
+    "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "neon-animation": "PolymerElements/neon-animation#^2.0.0",
+    "vaadin-upload": "vaadin/vaadin-upload#^1.1.4",
+    "iron-jsonp-library": "PolymerElements/iron-jsonp-library#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0-rc.3"
