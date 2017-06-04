@@ -1,24 +1,24 @@
   //Init material and dropdown.
   //$.material.init();
 
-  // //Resize my final canvas.
-  // function resizeCanvas(canvasItem){
-  //   canvasItem.outerHeight( $(window).height() -
-  //                             canvasItem.offset().top -
-  //                             Math.abs(
-  //                               canvasItem.outerHeight(true) -
-  //                               canvasItem.outerHeight()
-  //                             )
-  //                           );
-  // }
+  //Resize my final canvas.
+  function resizeCanvas(canvasItem){
+    canvasItem.outerHeight( $(window).height() -
+                              canvasItem.offset().top -
+                              Math.abs(
+                                canvasItem.outerHeight(true) -
+                                canvasItem.outerHeight()
+                              )
+                            );
+  }
 
   //Call resize canvas on resize windows event.
-  // $(document).ready(function(){
-  //   resizeCanvas($("#myCanvasDownload"));
-  //   $(window).on("resize", function(){
-  //       resizeCanvas($("#myCanvasDownload"));
-  //   });
-  // });
+  $(document).ready(function(){
+    resizeCanvas($("#myCanvasDownload"));
+    $(window).on("resize", function(){
+        resizeCanvas($("#myCanvasDownload"));
+    });
+  });
 
   //Create option list for country.
   var $selectContry = $('#countryOption').selectize({

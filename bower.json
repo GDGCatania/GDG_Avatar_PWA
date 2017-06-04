@@ -26,7 +26,8 @@
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "neon-animation": "PolymerElements/neon-animation#^2.0.0",
     "vaadin-upload": "vaadin/vaadin-upload#^1.1.4",
-    "iron-jsonp-library": "PolymerElements/iron-jsonp-library#^2.0.0"
+    "iron-jsonp-library": "PolymerElements/iron-jsonp-library#^2.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0-rc.3"
