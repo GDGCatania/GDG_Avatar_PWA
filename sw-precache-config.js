@@ -15,6 +15,9 @@ module.exports = {
     '/index.html',
     '/manifest.json',
     '/bower_components/webcomponentsjs/*',
+    "img/**/*",
+    "lib/**/*",
   ],
   navigateFallback: 'index.html',
+  navigateFallbackWhitelist: [/^(?!.*\.html$|\/data\/).*/]
 };

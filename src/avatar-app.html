@@ -26,10 +26,18 @@
 
 <dom-module id="avatar-app">
   <link rel="import" type="css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="import" type="css" href="../lib/css/bootstrap-material-design.min.css">
+  <link rel="import" type="css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+    
+
   <template>
     <style>
       :host {
         display: block;
+      }
+      paper-checkbox{
+        padding-right: 20px;
       }
     </style>
 
@@ -59,7 +67,7 @@
             </template>
           </paper-listbox>
         </paper-dropdown-menu>
-
+<!--
         <div class="form-group">
           <input type="file" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
           <div>
@@ -70,11 +78,30 @@
               </button>
             </span>
           </div>
-        </div> 
+        </div> -->
 
-        <paper-checkbox id="colorSet" on-click="draw" >BlackWhite</paper-checkbox>
+        <div class="form-group">
+          <input type="file" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
+          <div class="input-group">
+            <input type="text" readonly="" class="form-control" placeholder="Please select a file...">
+            <span class="input-group-btn input-group-sm">
+              <button type="button" class="btn btn-fab btn-fab-mini">
+                <i class="material-icons">attach_file</i>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
         <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
         <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
+         <div class="togglebutton">
+        <label> SquareCrop
+          <input type="checkbox" checked="" id="squareCrop2">
+        </label>
+      </div>
+
+        <a  href$="{{downloadPath}}" download="avatar.png" id="download" class="btn btn-raised btn-success">Download as .png<div class="ripple-container"></div></a>
 
       </div>
     </div>
@@ -83,7 +110,7 @@
 
 
 
-  <script src="../js/countryList.js"></script>
+  <script src="../lib/js/country-list.js"></script>
   <script>
     /**
      * `avatar-app`
@@ -112,6 +139,8 @@
     var items = country;
     var yourCountry;
     var results;
+    var child;
+    var canvasDownloadPath;
 
     function start(){
       console.log("scrivo testo...");
@@ -146,12 +175,16 @@
       tempCtx.drawImage(logoWtm,0,0,widthWMT,new_height);
     }
 
-    var child = myImage.querySelector('#myCanvasDownload'); 
+    child = myImage.querySelector('#myCanvasDownload'); 
     
     if(child) myImage.removeChild(child);
 
     tempCanvas.setAttribute('id','myCanvasDownload');
     myImage.appendChild(tempCanvas);
+    canvasDownloadPath =  tempCanvas.toDataURL()
+
+    var editor = document.querySelector("avatar-app");
+    editor.set('downloadPath', canvasDownloadPath);
   }
 
 
@@ -178,6 +211,10 @@
           },
           ajaxError:{
             observer: 'ajaxError'
+          },
+          downloadPath:{
+            type:String,
+            notify:true
           }
         };
       }
@@ -344,8 +381,6 @@
         };
       }
 
-
-      
     }
 
     window.customElements.define(AvatarApp.is, AvatarApp);
