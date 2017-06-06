@@ -28,7 +28,10 @@
     "vaadin-upload": "vaadin/vaadin-upload#^1.1.4",
     "iron-jsonp-library": "PolymerElements/iron-jsonp-library#^2.0.0",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
-    "granite-file-saver": "LostInBrittany/granite-file-saver#^1.0.4"
+    "granite-file-saver": "LostInBrittany/granite-file-saver#^1.0.4",
+    "paper-fab": "PolymerElements/paper-fab#^2.0.0",
+    "file-input": "rnicholus/file-input#^2.0.0",
+    "google-webfont-loader": "printminion/google-webfont-loader#^1.6.27"
   },
   "resolutions": {
     "polymer": "^2.0.0-rc.3"

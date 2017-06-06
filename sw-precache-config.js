@@ -13,10 +13,11 @@
 module.exports = {
   staticFileGlobs: [
     '/index.html',
+    'lib/**/*',
     '/manifest.json',
     '/bower_components/webcomponentsjs/*',
-    "img/**/*",
-    "lib/**/*",
+    'img/**/*',
+    'favicons/**/*',
   ],
   navigateFallback: 'index.html',
   navigateFallbackWhitelist: [/^(?!.*\.html$|\/data\/).*/]

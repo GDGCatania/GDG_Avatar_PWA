@@ -10,10 +10,13 @@
 <link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="../bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
 <link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
 <link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
@@ -21,36 +24,94 @@
 <link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/file-input/file-input.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
+<link rel="import" href="../bower_components/google-webfont-loader/google-webfont-loader.html">
+
+
+
+    
+   
+
 
 <link rel="import" href="my-icons.html">
 
 <dom-module id="avatar-app">
-  <link rel="import" type="css" href="../bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="import" type="css" href="../lib/css/bootstrap-material-design.min.css">
-  <link rel="import" type="css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  
-    
-
   <template>
-    <style>
+    <google-webfont-loader  fonts="Product Sans"></google-webfont-loader>
+    
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-weight: normal;
+        font-size: 15px;
+        -webkit-font-smoothing: antialiased;
       }
       paper-checkbox{
         padding-right: 20px;
       }
+      #myCanvasDownload{
+        max-width: 500px;
+        width: 100%;
+      } 
+      .container {
+        @apply --layout-horizontal;
+        padding: 15px;
+      }
+      .flexchild {
+        @apply --layout-flex;
+        
+      }
+      #uploadimage{
+        height: 56px;
+        width: 56px;
+        z-index: 2;
+        position: absolute;
+        opacity: 0;
+      }
+      iron-image{
+          width: 30%;
+          height:30%;
+        }
+
+      
+    @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        .container {
+          @apply --layout-vertical;
+          padding: 15px;
+        }
+        .flexchild {
+          @apply --layout-flex;
+          text-align: right;
+        }
+        iron-image{
+          width: 60%;
+          height:30%;
+        }
+
+
+    }
+
     </style>
 
 
-  <div id="page" style="height:100vh;">
+  <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
 
-    <h3>Your image</h3>
+    <iron-image 
+  sizing="cover" preload fade src="../img/logo.svg"></iron-image>
     
-    <div class="row">
+    <div class="container">
 
-      <div id="myImage" class="col-md-6"></div>
+      <div id="myImage" class="flexchild"></div>
 
-      <div id="myForm" class="col-md-6">
+      <div id="myForm" class="flexchild">
 
         <paper-dropdown-menu label="Your Country" id="labelCountry" style="width:100%">
           <paper-listbox slot="dropdown-content"  attr-for-selected="lang" id="countryOption" on-click="downloadGdgList">
@@ -80,28 +141,17 @@
           </div>
         </div> -->
 
-        <div class="form-group">
-          <input type="file" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
-          <div class="input-group">
-            <input type="text" readonly="" class="form-control" placeholder="Please select a file...">
-            <span class="input-group-btn input-group-sm">
-              <button type="button" class="btn btn-fab btn-fab-mini">
-                <i class="material-icons">attach_file</i>
-              </button>
-            </span>
-          </div>
+        <div class="container form">
+           <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
+            <paper-fab icon="file-upload"></paper-fab>
         </div>
 
         <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
         <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
         <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
-         <div class="togglebutton">
-        <label> SquareCrop
-          <input type="checkbox" checked="" id="squareCrop2">
-        </label>
-      </div>
+        <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
 
-        <a  href$="{{downloadPath}}" download="avatar.png" id="download" class="btn btn-raised btn-success">Download as .png<div class="ripple-container"></div></a>
+        <a  href$="{{downloadPath}}" download="avatar.png" id="download" class="btn btn-raised btn-success"><paper-icon-button icon="file-download" title="heart">dsad</paper-icon-button>Download as .png<div class="ripple-container"></div></a>
 
       </div>
     </div>
@@ -141,6 +191,8 @@
     var results;
     var child;
     var canvasDownloadPath;
+    var textColor;
+
 
     function start(){
       console.log("scrivo testo...");
@@ -149,7 +201,7 @@
     }
 
     function applyText(canvas,text){
-    console.log("il testo è " + text);
+    console.log("il testo è " + text + textColor);
     var tempCanvas = document.createElement('canvas');
     var tempCtx = tempCanvas.getContext('2d');
     var cw,ch;
@@ -157,23 +209,36 @@
     cw = tempCanvas.width = canvas.width;
     ch = tempCanvas.height = canvas.height;
 
+    
+    
+
     tempCtx.drawImage(canvas,0,0);
-    tempCtx.font = "30px verdana";
+
+    tempCtx.font = "30px product sans";
 
     var textWidth = tempCtx.measureText(text).width;
 
-    tempCtx.fillStyle = 'white';
+    //tempCtx.font = "30px Product Sans";
+    
+
+    if(textColor.checked) tempCtx.fillStyle = 'black';
+    else tempCtx.fillStyle = 'white';
+
     tempCtx.fillText(text,cw-textWidth-10, 30);
 
     var new_height = logo.height / logo.width * cw;
 
-    tempCtx.drawImage(logo,0,ch-new_height,cw,new_height);
+   
 
     if(wtm.checked){
       var widthWMT = 100;
       var new_height = logoWtm.height / logoWtm.width * widthWMT;
       tempCtx.drawImage(logoWtm,0,0,widthWMT,new_height);
     }
+
+
+     tempCtx.drawImage(logo,0,ch-new_height,cw,new_height);
+
 
     child = myImage.querySelector('#myCanvasDownload'); 
     
@@ -205,6 +270,10 @@
             type: Array,
             notify:true,
             observer: '_gdgsChanged',
+          },
+          imageName:{
+            type: String,
+            notify:true,
           },
           ajaxResponse:{
             observer: '_ajaxChanged'
@@ -255,6 +324,7 @@
 
         //var logo = new Image();
         logo.crossOrigin='anonymous';
+        logo.src = "../img/logoL.png"
 
         //var logoWtm = new Image();
         logoWtm.crossOrigin = 'anonymous';
@@ -267,12 +337,6 @@
         console.log(items);
 
       }
-
-      succes(){
-        console.log("abbiamo vinto")
-        this.gdgs = results;
-      }
-
       _gdgsChanged(newValue, oldValue){
         console.log("gdgs è cambiato");
         console.log(newValue);
@@ -313,6 +377,7 @@
         if(this.$.uploadimage.files[0] == null) return;
 
         f = this.$.uploadimage.files[0];
+        this.imageName = f;
         url = window.URL || window.webkitURL;
         src = url.createObjectURL(f);
         squareCrop = this.$.squareCrop;
@@ -320,6 +385,7 @@
         wtm = this.$.wtm;
         myImage = this.$.myImage;
         gdgOption = this.$.gdgOption;
+        textColor = this.$.color;
 
         img.src = src;
 
@@ -375,8 +441,9 @@
               ctx.putImageData(imageData, 0, 0);
             }
 
-            logo.src = "../img/logo.png";
-            logo.onload = start;
+            logo.src = "../img/logoL.png";
+            //logo.onload = start;
+            logo.onload = function(){console.log("logo caricato"); start();};
             url.revokeObjectURL(src);
         };
       }
