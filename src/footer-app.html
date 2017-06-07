@@ -1,0 +1,61 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/social-links/social-link.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+
+<dom-module id="footer-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 20px;
+    
+        
+      }
+      iron-image{
+          width: 60px;
+          height:60px;
+        }
+        #credit{
+            float: left;
+            padding-left: 20px;
+            text
+        }
+    </style>
+    
+    <a href="https://github.com/GabrieleMessina/GDG_Avatar_PWA" target="blank" style="float:left;"><iron-image 
+    sizing="cover" preload fade src="../img/GitHub.png"></iron-image></a>
+
+    <div id="credit">Designed and developed by 
+    
+    <br> Alessandro Maggio <linkedin-link href="https://www.linkedin.com/in/aalessandromaggio/" height="20px"></linkedin-link><github-link href="https://github.com/Tkd-Alex" height="20px"></github-link><email-link email="info@convoo.me" text></email-link>
+    <br> Gabriele Messina &nbsp; &nbsp; <linkedin-link href="https://www.linkedin.com/in/gabriele-messina-81b61510b/" height="20px"></linkedin-link><github-link href="https://github.com/GabrieleMessina" height="20px"></github-link><email-link email="gabryelemessina99@gmail.com" text></email-link>
+    
+    </div>
+    
+
+  </template>
+
+  <script>
+    /**
+     * `footer-app`
+     * shell page
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class FooterApp extends Polymer.Element {
+      static get is() { return 'footer-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'footer-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(FooterApp.is, FooterApp);
+  </script>
+</dom-module>

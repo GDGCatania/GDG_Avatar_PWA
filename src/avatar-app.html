@@ -32,6 +32,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
 <link rel="import" href="../bower_components/google-webfont-loader/google-webfont-loader.html">
+<link rel="import" href="../bower_components/social-links/social-link.html">
 
 
 
@@ -75,10 +76,31 @@
         position: absolute;
         opacity: 0;
       }
-      iron-image{
-          width: 30%;
-          height:30%;
-        }
+      #header{
+        width: 30%;
+        height:30%;
+      }
+      #footer{
+        width: 60px;
+        height:60px;
+        margin: 10px;
+      }
+      #credit{
+          padding-left: 20px;
+      }
+      #myForm{
+        text-align: center;
+      }
+      paper-fab.blue {
+        --paper-fab-background: var(--paper-light-blue-500);
+        --paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
+      }
+      #saveImage{
+        padding-top:10px;
+      }
+
+
+        
 
       
     @media only screen and (max-width: 768px) {
@@ -91,10 +113,13 @@
           @apply --layout-flex;
           text-align: right;
         }
-        iron-image{
+
+        #header{
           width: 60%;
           height:30%;
+
         }
+      
 
 
     }
@@ -105,7 +130,7 @@
   <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
 
     <iron-image 
-  sizing="cover" preload fade src="../img/logo.svg"></iron-image>
+  sizing="cover" id="header" preload fade src="../img/logo.svg"></iron-image>
     
     <div class="container">
 
@@ -141,20 +166,34 @@
           </div>
         </div> -->
 
-        <div class="container form">
+        <div class="container form flexchild" style="margin-left:40%;" >
            <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
-            <paper-fab icon="file-upload"></paper-fab>
+            <paper-fab class="blue" icon="file-upload"></paper-fab>
         </div>
+
 
         <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
         <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
         <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
         <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
 
-        <a  href$="{{downloadPath}}" download="avatar.png" id="download" class="btn btn-raised btn-success"><paper-icon-button icon="file-download" title="heart">dsad</paper-icon-button>Download as .png<div class="ripple-container"></div></a>
+        <br>
 
+        <a  href$="{{downloadPath}}" download="avatar.png" id="download"><div id="saveImage"><paper-icon-button icon="file-download" title="heart"></paper-icon-button>Download as .png<div class="ripple-container"></div></div></a>
+      
       </div>
     </div>
+
+    <a href="https://github.com/GabrieleMessina/GDG_Avatar_PWA" target="blank"><iron-image 
+    sizing="cover" id="footer" preload fade src="../img/GitHub.png"></iron-image></a>
+
+    <div id="credit">Designed and developed by 
+    
+    <br> Alessandro Maggio <linkedin-link href="https://www.linkedin.com/in/aalessandromaggio/" height="20px"></linkedin-link><github-link href="https://github.com/Tkd-Alex" height="20px"></github-link>
+    <br> Gabriele Messina &nbsp; <linkedin-link href="https://www.linkedin.com/in/gabriele-messina-81b61510b/" height="20px"></linkedin-link><github-link href="https://github.com/GabrieleMessina" height="20px"></github-link>
+    
+    </div>
+
   </div>
   </template>
 
