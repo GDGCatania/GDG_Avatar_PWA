@@ -190,9 +190,12 @@
 
         <div class="container form flexchild" >
            <!--<input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">-->
-            <a><paper-button raised id="uploadButton">
-            <iron-icon icon="file-upload"></iron-icon>
+            
+            <a>
+            <paper-button raised id="uploadButton">
             <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
+              
+            <iron-icon icon="file-upload"></iron-icon>
             Upload your image
           </paper-button></a>
           <a  href$="{{downloadPath}}" download="avatar.png" id="download">
