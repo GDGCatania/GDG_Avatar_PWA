@@ -163,7 +163,7 @@
           </paper-listbox>
         </paper-dropdown-menu>  
 
-        <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}">
+        <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}" on-selected-item-changed="draw">
           <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="gdgOption">
             <template is="dom-repeat" items="{{gdgs.items}}">
               <paper-item lang="{{item.name}}">{{item.name}}</paper-item>
