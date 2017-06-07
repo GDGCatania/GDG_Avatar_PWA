@@ -115,12 +115,16 @@
         --paper-checkbox-checked-color: var(--paper-light-blue-500);
         --paper-checkbox-unchecked-color: var(--paper-light-blue-900);
       }
+      .break{
+        display: none;
+      }
+      
 
 
         
 
       
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 942px) {
         /* For mobile phones: */
         .container {
           @apply --layout-vertical;
@@ -135,9 +139,26 @@
           height:30%;
 
         }
-      
-
-
+    
+    }
+    @media only screen and (max-width: 474px) {
+        /* For mobile phones: */
+        #colorSet{
+          float: left;
+        }
+        #wtm{
+          float: left;
+        }
+        #squareCrop{
+          float: left;
+        }
+        #color{
+          float:left;
+        }
+        .break{
+          display: block;
+        }
+        
     }
 
     </style>
@@ -192,7 +213,7 @@
            <!--<input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">-->
             
             <a>
-            <paper-button raised id="uploadButton">
+            <paper-button raised id="uploadButton" stop-keyboard-event-propagation="true" >
             <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
               
             <iron-icon icon="file-upload"></iron-icon>
@@ -207,10 +228,10 @@
         </div>
 
         <div style="text-align:center; margin-top:20px;">
-          <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
-          <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
-          <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
-          <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
+          <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox><br class="break">
+          <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox><br class="break">
+          <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox><br class="break">
+          <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox><br class="break">
         </div>
         <br>
 
