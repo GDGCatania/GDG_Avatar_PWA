@@ -1,38 +1,39 @@
 <link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
+<link rel="import" href="../bower_components/social-links/social-link.html">
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animation.html">
 <link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
 <link rel="import" href="../bower_components/iron-meta/iron-meta.html">
 <link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
-<link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
 <link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
 <link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
-<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
-<link rel="import" href="../bower_components/file-input/file-input.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
 <link rel="import" href="../bower_components/google-webfont-loader/google-webfont-loader.html">
-<link rel="import" href="../bower_components/social-links/social-link.html">
+<link rel="import" href="../bower_components/file-input/file-input.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../bower_components/paper-styles/element-styles/paper-material-styles.html">
 
 
 
@@ -46,7 +47,7 @@
   <template>
     <google-webfont-loader  fonts="Product Sans"></google-webfont-loader>
     
-    <style include="iron-flex iron-flex-alignment">
+    <style include="iron-flex iron-flex-alignment paper-material-styles">
       :host {
         display: block;
         font-family: 'Roboto', 'Noto', sans-serif;
@@ -95,8 +96,24 @@
         --paper-fab-background: var(--paper-light-blue-500);
         --paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
       }
-      #saveImage{
-        padding-top:10px;
+      #downloadButton{
+        background-color: var(--paper-light-blue-500);
+        margin-top: 20px;
+        color: white;
+      }
+      #uploadButton{
+        background-color: var(--paper-light-blue-500);
+        margin-top: 20px;
+        color: white;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+        flex:inherit;
+      }
+      paper-checkbox{
+        --paper-checkbox-checked-color: var(--paper-light-blue-500);
+        --paper-checkbox-unchecked-color: var(--paper-light-blue-900);
       }
 
 
@@ -111,7 +128,6 @@
         }
         .flexchild {
           @apply --layout-flex;
-          text-align: right;
         }
 
         #header{
@@ -125,6 +141,7 @@
     }
 
     </style>
+
 
 
   <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
@@ -146,7 +163,7 @@
           </paper-listbox>
         </paper-dropdown-menu>  
 
-        <paper-dropdown-menu label="Your GDG" style="width:100%">
+        <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}">
           <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="gdgOption">
             <template is="dom-repeat" items="{{gdgs.items}}">
               <paper-item lang="{{item.name}}">{{item.name}}</paper-item>
@@ -166,21 +183,36 @@
           </div>
         </div> -->
 
-        <div class="container form flexchild" style="margin-left:40%;" >
+        <!--<div class="container form flexchild" style="margin-left:43%;" >
            <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
             <paper-fab class="blue" icon="file-upload"></paper-fab>
+        </div>-->
+
+        <div class="container form flexchild" >
+           <!--<input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">-->
+            <a><paper-button raised id="uploadButton">
+            <iron-icon icon="file-upload"></iron-icon>
+            <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
+            Upload your image
+          </paper-button></a>
+          <a  href$="{{downloadPath}}" download="avatar.png" id="download">
+            <paper-button raised id="downloadButton">
+              <iron-icon icon="file-download"></iron-icon>
+              Download as .png
+            </paper-button>
+          </a>
         </div>
 
-
-        <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
-        <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
-        <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
-        <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
-
+        <div style="text-align:center; margin-top:20px;">
+          <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
+          <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
+          <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
+          <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
+        </div>
         <br>
 
-        <a  href$="{{downloadPath}}" download="avatar.png" id="download"><div id="saveImage"><paper-icon-button icon="file-download" title="heart"></paper-icon-button>Download as .png<div class="ripple-container"></div></div></a>
-      
+        <!--<a  href$="{{downloadPath}}" download="avatar.png" id="download"><div id="saveImage"><paper-icon-button icon="file-download" title="heart"></paper-icon-button>Download as .png<div class="ripple-container"></div></div></a>-->
+    
       </div>
     </div>
 
@@ -323,6 +355,11 @@
           downloadPath:{
             type:String,
             notify:true
+          },
+          gdgDisabled:{
+            type:Boolean,
+            notify:true,
+            value:true
           }
         };
       }
@@ -392,6 +429,7 @@
                       // Your external method.
                       var getTemplate = function(){
                         var editor = document.querySelector("avatar-app");
+                        editor.set('gdgDisabled', false);
                         return editor.set('gdgs', result);
                       }
                       getTemplate();

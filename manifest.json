@@ -3,8 +3,8 @@
   "short_name": "GDG avatar",
   "start_url": "./?homescreen=1",
   "display": "standalone",
-  "theme_color": "#3f51b5",
-  "background_color": "#3f51b5",
+  "theme_color": "#03A9F4",
+  "background_color": "#03A9F4",
   "icons": [
     {
       "src": "../favicons/favicon-16x16.png",
