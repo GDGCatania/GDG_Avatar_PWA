@@ -119,11 +119,6 @@
         display: none;
       }
       
-
-
-        
-
-      
     @media only screen and (max-width: 942px) {
         /* For mobile phones: */
         .container {
@@ -256,6 +251,7 @@
 
 
   <script src="../lib/js/country-list.js"></script>
+  
   <script>
     /**
      * `avatar-app`
@@ -289,6 +285,7 @@
     var textColor;
 
 
+
     function start(){
       console.log("scrivo testo...");
       if(gdgOption.selected == null) applyText(canvas, "GDG");
@@ -309,7 +306,7 @@
 
     tempCtx.drawImage(canvas,0,0);
 
-    tempCtx.font = "30px product sans";
+    tempCtx.font = "40px product sans";
 
     var textWidth = tempCtx.measureText(text).width;
 
@@ -319,7 +316,7 @@
     if(textColor.checked) tempCtx.fillStyle = 'black';
     else tempCtx.fillStyle = 'white';
 
-    tempCtx.fillText(text,cw-textWidth-10, 30);
+    tempCtx.fillText(text,cw-textWidth-10, 40);
 
     var new_height = logo.height / logo.width * cw;
 
@@ -345,6 +342,16 @@
 
     var editor = document.querySelector("avatar-app");
     editor.set('downloadPath', canvasDownloadPath);
+
+    $( "#myCanvasDownload" ).resizable({
+      alsoResize: "#mirror"
+    });
+
+        // Getter
+    var alsoResize = $( "#myCanvasDownload" ).resizable( "option", "alsoResize" );
+    
+    // Setter
+    $( "#myCanvasDownload" ).resizable( "option", "alsoResize", "#mirror" );
   }
 
 
@@ -492,15 +499,39 @@
 
         img.onload = function() {
 
+            // if(squareCrop.checked){
+
+            //   canvas.width=500;
+            //   canvas.height=500;
+
+            //   var sourceX = 500;
+            //   var sourceY = 0;
+            //   var sourceWidth = 500;
+            //   var sourceHeight = 500;
+            //   var destWidth = sourceWidth;
+            //   var destHeight = sourceHeight;
+            //   var destX = canvas.width / 2 - destWidth / 2;
+            //   var destY = canvas.height / 2 - destHeight / 2;
+
+            //   ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+
+            // }
             if(squareCrop.checked){
+              var ratio = img.height/img.width;
 
-              canvas.width=500;
-              canvas.height=500;
+              console.log(img.width, img.height, ratio);
 
-              var sourceX = 500;
+              if(img.width < img.height){
+                var newRatio = img.width;
+              }else {var newRatio = img.height;}
+
+              canvas.width=newRatio;
+              canvas.height=newRatio;
+
+              var sourceX = 0;
               var sourceY = 0;
-              var sourceWidth = 500;
-              var sourceHeight = 500;
+              var sourceWidth = newRatio;
+              var sourceHeight = newRatio;
               var destWidth = sourceWidth;
               var destHeight = sourceHeight;
               var destX = canvas.width / 2 - destWidth / 2;
