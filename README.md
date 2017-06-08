@@ -1,1 +1,2 @@
-This tool allow the user to create simple GDG (Google Developer Group) avatar.
+# GDG-Avatar
+This tool allow user to create GDG (Google Developer Group) avatar.
