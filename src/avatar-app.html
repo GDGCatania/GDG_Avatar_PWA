@@ -1,52 +1,49 @@
-<link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
-<link rel="import" href="../bower_components/social-links/social-link.html">
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-input-container.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
-<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/neon-animation/web-animations.html">
-<link rel="import" href="../bower_components/neon-animation/neon-animation.html">
-<link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
-<link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
-<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
-<link rel="import" href="../bower_components/iron-meta/iron-meta.html">
-<link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
-<link rel="import" href="../bower_components/iron-input/iron-input.html">
-<link rel="import" href="../bower_components/iron-image/iron-image.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
-<link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
-<link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
-<link rel="import" href="../bower_components/google-webfont-loader/google-webfont-loader.html">
-<link rel="import" href="../bower_components/file-input/file-input.html">
-<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
-<link rel="import" href="../bower_components/paper-styles/element-styles/paper-material-styles.html">
-
-
-
-    
-   
-
+<!-- section import -->
+  <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+  <link rel="import" href="../bower_components/file-input/file-input.html">
+  <link rel="import" href="../bower_components/google-webfont-loader/google-webfont-loader.html">
+  <link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+  <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="../bower_components/iron-behaviors/iron-button-state.html">
+  <link rel="import" href="../bower_components/iron-behaviors/iron-control-state.html">
+  <link rel="import" href="../bower_components/iron-dropdown/iron-dropdown.html">
+  <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+  <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+  <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="../bower_components/iron-image/iron-image.html">
+  <link rel="import" href="../bower_components/iron-input/iron-input.html">
+  <link rel="import" href="../bower_components/iron-jsonp-library/iron-jsonp-library.html">
+  <link rel="import" href="../bower_components/iron-meta/iron-meta.html">
+  <link rel="import" href="../bower_components/iron-overlay-behavior/iron-overlay-behavior.html">
+  <link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+  <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+  <link rel="import" href="../bower_components/jquery/dist/jquery.min.js">
+  <link rel="import" href="../bower_components/neon-animation/neon-animation-runner-behavior.html">
+  <link rel="import" href="../bower_components/neon-animation/neon-animation.html">
+  <link rel="import" href="../bower_components/neon-animation/web-animations.html">
+  <link rel="import" href="../bower_components/paper-button/paper-button.html">
+  <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+  <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+  <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="../bower_components/paper-input/paper-input-container.html">
+  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+  <link rel="import" href="../bower_components/paper-item/paper-item.html">
+  <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+  <link rel="import" href="../bower_components/paper-styles/element-styles/paper-material-styles.html">
+  <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+  <link rel="import" href="../bower_components/polymer/polymer-element.html">
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/social-links/social-link.html">
+  <link rel="import" href="../bower_components/vaadin-upload/vaadin-upload.html">
+<!-- end section import -->
 
 <link rel="import" href="my-icons.html">
 
 <dom-module id="avatar-app">
   <template>
-    <google-webfont-loader  fonts="Product Sans"></google-webfont-loader>
-    
+    <google-webfont-loader fonts="Product Sans"></google-webfont-loader>
+
     <style include="iron-flex iron-flex-alignment paper-material-styles">
       :host {
         display: block;
@@ -55,70 +52,87 @@
         font-size: 15px;
         -webkit-font-smoothing: antialiased;
       }
-      paper-checkbox{
+
+      paper-checkbox {
         padding-right: 20px;
       }
-      #myCanvasDownload{
+
+      #myCanvasDownload {
         max-width: 600px;
-      } 
+      }
+
       .container {
         @apply --layout-horizontal;
         padding: 15px;
       }
+
       .flexchild {
         @apply --layout-flex;
-        
       }
-      #uploadimage{
+
+      #uploadimage {
         height: 56px;
         width: 100%;
         z-index: 2;
         position: absolute;
         opacity: 0;
       }
-      #header{
+
+      #header {
         width: 30%;
-        height:30%;
+        height: 30%;
       }
-      #footer{
+
+      #footer {
         width: 60px;
-        height:60px;
+        height: 60px;
         margin: 10px;
       }
-      #credit{
-          padding-left: 20px;
+
+      #credit {
+        padding-left: 20px;
       }
-      #myForm{
+
+      #myForm {
         text-align: center;
       }
+
       paper-fab.blue {
         --paper-fab-background: var(--paper-light-blue-500);
         --paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
       }
-      #downloadButton{
+
+      #downloadButton {
         background-color: var(--paper-light-blue-500);
         margin-top: 20px;
         color: white;
       }
-      #uploadButton{
+
+      #uploadButton {
         background-color: var(--paper-light-blue-500);
         margin-top: 20px;
         color: white;
       }
+
       a {
         color: inherit;
         text-decoration: none;
-        flex:inherit;
+        flex: inherit;
       }
-      paper-checkbox{
+
+      paper-checkbox {
         --paper-checkbox-checked-color: var(--paper-light-blue-500);
         --paper-checkbox-unchecked-color: var(--paper-light-blue-900);
       }
-      .break{
+
+      .break {
         display: none;
       }
-      
-    @media only screen and (max-width: 942px) {
+      .yellowButton{
+        color:yellow;
+      }
+
+      @media only screen and (max-width: 942px) {
         /* For mobile phones: */
         .container {
           @apply --layout-vertical;
@@ -127,465 +141,443 @@
         .flexchild {
           @apply --layout-flex;
         }
-
-        #header{
+        #header {
           width: 60%;
-          height:30%;
+          height: 30%;
+        }
+      }
 
-        }
-    
-    }
-    @media only screen and (max-width: 474px) {
+      @media only screen and (max-width: 474px) {
         /* For mobile phones: */
-        #colorSet{
+        #colorSet {
           float: left;
         }
-        #wtm{
+        #wtm {
           float: left;
         }
-        #squareCrop{
+        #squareCrop {
           float: left;
         }
-        #color{
-          float:left;
+        #color {
+          float: left;
         }
-        .break{
+        .break {
           display: block;
         }
-        
-    }
-
+      }
     </style>
 
 
+    <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
 
-  <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
+      <iron-image sizing="cover" id="header" preload fade src="../img/logo.svg"></iron-image>
 
-    <iron-image 
-  sizing="cover" id="header" preload fade src="../img/logo.svg"></iron-image>
-    
-    <div class="container">
+      <div class="container">
 
-      <div id="myImage" class="flexchild"></div>
+        <div id="myImage" class="flexchild"></div>
 
-      <div id="myForm" class="flexchild">
+        <div id="myForm" class="flexchild">
 
-        <paper-dropdown-menu label="Your Country" id="labelCountry" style="width:100%">
-          <paper-listbox slot="dropdown-content"  attr-for-selected="lang" id="countryOption" on-click="downloadGdgList">
-            <template is="dom-repeat" items="{{items}}"> 
-              <paper-item lang="{{item.id}}">{{item.name}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>  
+          <paper-dropdown-menu label="Your Country" id="labelCountry" style="width:100%">
+            <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="countryOption" on-click="downloadGdgList">
+              <template is="dom-repeat" items="{{items}}">
+                <paper-item lang="{{item.id}}">{{item.name}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
 
-        <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}" on-selected-item-changed="draw">
-          <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="gdgOption">
-            <template is="dom-repeat" items="{{gdgs.items}}">
-              <paper-item lang="{{item.name}}">{{item.name}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-<!--
-        <div class="form-group">
-          <input type="file" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
-          <div>
-            <input type="text" readonly="" placeholder="Please select a file...">
-            <span >
-              <button type="button">
-                <i>attach_file</i>
-              </button>
-            </span>
-          </div>
-        </div> -->
+          <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}" on-selected-item-changed="draw">
+            <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="gdgOption">
+              <template is="dom-repeat" items="{{gdgs.items}}">
+                <paper-item lang="{{item.name}}">{{item.name}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
 
-        <!--<div class="container form flexchild" style="margin-left:43%;" >
-           <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
-            <paper-fab class="blue" icon="file-upload"></paper-fab>
-        </div>-->
+          <div class="container form flexchild">
 
-        <div class="container form flexchild" >
-           <!--<input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">-->
-            
             <a>
-            <paper-button raised id="uploadButton" stop-keyboard-event-propagation="true" >
-            <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
-              
-            <iron-icon icon="file-upload"></iron-icon>
-            Upload your image
-          </paper-button></a>
-          <a  href$="{{downloadPath}}" download="avatar.png" id="download">
-            <paper-button raised id="downloadButton">
-              <iron-icon icon="file-download"></iron-icon>
-              Download as .png
-            </paper-button>
-          </a>
+              <paper-button raised id="uploadButton" stop-keyboard-event-propagation="true">
+                <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
+
+                <iron-icon icon="file-upload"></iron-icon>
+                Upload your image
+              </paper-button>
+            </a>
+            <a href$="{{downloadPath}}" download="avatar.png" id="download">
+              <paper-button raised id="downloadButton">
+                <iron-icon icon="file-download"></iron-icon>
+                Download as .png
+              </paper-button>
+            </a>
+          </div>
+
+          <div style="text-align:center; margin-top:20px;">
+            <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox>
+            <br class="break">
+            <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
+            <br class="break">
+            <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
+            <br class="break">
+            <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
+            <br class="break">
+          </div>
+          <br>
+
+          <p style="color:gray">Recommended resolution for your photo is 600x600.</p>
+
         </div>
-
-        <div style="text-align:center; margin-top:20px;">
-          <paper-checkbox id="colorSet" on-click="draw">BlackWhite</paper-checkbox><br class="break">
-          <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox><br class="break">
-          <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox><br class="break">
-          <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox><br class="break">
-        </div>
-        <br>
-
-        <p style="color:gray">Recommended resolution for your photo is 600x600.</p>
-
-        <!--<a  href$="{{downloadPath}}" download="avatar.png" id="download"><div id="saveImage"><paper-icon-button icon="file-download" title="heart"></paper-icon-button>Download as .png<div class="ripple-container"></div></div></a>-->
-    
       </div>
+
+      <a href="https://github.com/GabrieleMessina/GDG_Avatar_PWA" target="blank">
+        <iron-image sizing="cover" id="footer" preload fade src="../img/GitHub.png"></iron-image>
+      </a>
+
+      <div id="credit">Designed and developed by
+
+        <br> Alessandro Maggio
+        <linkedin-link href="https://www.linkedin.com/in/aalessandromaggio/" height="20px"></linkedin-link>
+        <github-link href="https://github.com/Tkd-Alex" height="20px"></github-link>
+        <br> Gabriele Messina &nbsp;
+        <linkedin-link href="https://www.linkedin.com/in/gabriele-messina-81b61510b/" height="20px"></linkedin-link>
+        <github-link href="https://github.com/GabrieleMessina" height="20px"></github-link>
+
+      </div>
+
     </div>
 
-    <a href="https://github.com/GabrieleMessina/GDG_Avatar_PWA" target="blank"><iron-image 
-    sizing="cover" id="footer" preload fade src="../img/GitHub.png"></iron-image></a>
 
-    <div id="credit">Designed and developed by 
-    
-    <br> Alessandro Maggio <linkedin-link href="https://www.linkedin.com/in/aalessandromaggio/" height="20px"></linkedin-link><github-link href="https://github.com/Tkd-Alex" height="20px"></github-link>
-    <br> Gabriele Messina &nbsp; <linkedin-link href="https://www.linkedin.com/in/gabriele-messina-81b61510b/" height="20px"></linkedin-link><github-link href="https://github.com/GabrieleMessina" height="20px"></github-link>
-    
-    </div>
-
-  </div>
+    <paper-toast id="toast1" opened="{{newVersion}}" duration="0" text="A new version is available.">
+      <paper-button on-click="toggleVersion" class="yellowButton">Refresh!</paper-button>
+      <paper-button on-click="letVersion" class="yellowButton">Delete</paper-button>
+    </paper-toast>
   </template>
 
 
-
   <script src="../lib/js/country-list.js"></script>
-  
+
   <script>
-    /**
-     * `avatar-app`
-     * shell page
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    
+  /**
+   * `avatar-app`
+   * shell page
+   *
+   * @customElement
+   * @polymer
+   * @demo demo/index.html
+   */
 
-    var logo = new Image();
-    var logoWtm = new Image();
-    var canvas = document.createElement('canvas');
-    var ctx;
-    var img;
-    var f;
-    var url;
-    var src;
-    var squareCrop;
-    var wtm 
-    var colorSet;
-    var myImage;
-    var gdgOption;
-    var gdgs;
-    var items = country;
-    var yourCountry;
-    var results;
-    var child;
-    var canvasDownloadPath;
-    var textColor;
+  var logo = new Image();
+  var logoWtm = new Image();
+  var canvas = document.createElement('canvas');
+  var ctx;
+  var img;
+  var f;
+  var url;
+  var src;
+  var squareCrop;
+  var wtm
+  var colorSet;
+  var myImage;
+  var gdgOption;
+  var gdgs;
+  var items = country;
+  var yourCountry;
+  var results;
+  var child;
+  var canvasDownloadPath;
+  var textColor;
 
+  function start() {
+    console.log("scrivo testo...");
+    if (gdgOption.selected == null) applyText(canvas, "GDG");
+    else applyText(canvas, gdgOption.selected);
+  }
 
-
-    function start(){
-      console.log("scrivo testo...");
-      if(gdgOption.selected == null) applyText(canvas, "GDG");
-      else applyText(canvas, gdgOption.selected );
-    }
-
-    function applyText(canvas,text){
+  function applyText(canvas, text) {
     console.log("il testo è " + text + textColor);
     var tempCanvas = document.createElement('canvas');
     var tempCtx = tempCanvas.getContext('2d');
-    var cw,ch;
+    var cw, ch;
 
     cw = tempCanvas.width = canvas.width;
     ch = tempCanvas.height = canvas.height;
 
-    
-    
-
-    tempCtx.drawImage(canvas,0,0);
+    tempCtx.drawImage(canvas, 0, 0);
 
     tempCtx.font = "500 50px product sans";
 
     var textWidth = tempCtx.measureText(text).width;
 
     //tempCtx.font = "30px Product Sans";
-    
 
-    if(textColor.checked) tempCtx.fillStyle = 'black';
+    if (textColor.checked) tempCtx.fillStyle = 'black';
     else tempCtx.fillStyle = 'white';
 
-    tempCtx.fillText(text,cw-textWidth-10, 50);
+    tempCtx.fillText(text, cw - textWidth - 10, 50);
 
     var new_height = logo.height / logo.width * cw;
 
-   
-
-    if(wtm.checked){
+    if (wtm.checked) {
       var widthWMT = 400;
       var new_height2 = logoWtm.height / logoWtm.width * widthWMT;
-      tempCtx.drawImage(logoWtm,10,10,widthWMT,new_height2);
+      tempCtx.drawImage(logoWtm, 10, 10, widthWMT, new_height2);
     }
 
-      //logo.setAttribute("transform", "scale(1.5)");
-     tempCtx.drawImage(logo,0,ch-new_height,cw,new_height);
+    //logo.setAttribute("transform", "scale(1.5)");
+    tempCtx.drawImage(logo, 0, ch - new_height, cw, new_height);
 
+    child = myImage.querySelector('#myCanvasDownload');
 
+    if (child) myImage.removeChild(child);
 
-    child = myImage.querySelector('#myCanvasDownload'); 
-    
-    if(child) myImage.removeChild(child);
-
-    tempCanvas.setAttribute('id','myCanvasDownload');
+    tempCanvas.setAttribute('id', 'myCanvasDownload');
     myImage.appendChild(tempCanvas);
-    canvasDownloadPath =  tempCanvas.toDataURL()
+    canvasDownloadPath = tempCanvas.toDataURL()
 
     var editor = document.querySelector("avatar-app");
     editor.set('downloadPath', canvasDownloadPath);
 
   }
 
-
-
-    class AvatarApp extends Polymer.Element {
-      static get is() { return 'avatar-app'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'avatar-app'
-          },
-          items:{
-            type: Array,
-            notify:true,
-          },
-          gdgs:{
-            type: Array,
-            notify:true,
-            observer: '_gdgsChanged',
-          },
-          imageName:{
-            type: String,
-            notify:true,
-          },
-          ajaxResponse:{
-            observer: '_ajaxChanged'
-          },
-          ajaxError:{
-            observer: 'ajaxError'
-          },
-          downloadPath:{
-            type:String,
-            notify:true
-          },
-          gdgDisabled:{
-            type:Boolean,
-            notify:true,
-            value:true
-          }
-        };
-      }
-
-      constructor(){
-        super();
-      }
-
-      setGdgs(value){
-        this.gdgs = value;
-      }
-
-      _ajaxError(newValue, oldValue){
-        console.log("ajax Error", newValue);
-      }
-
-      ajaxErrored(event){
-        console.log("ajax errored", event);
-      }
-
-      _ajaxChanged(newValue, oldValue){
-        console.log("ajax", newValue);
-      }
-
-      ajaxChanged(value){
-        console.log("ajax cambiata", value);
-      }
-
-      handleResponse(response) {
-        console.log("responsse:", response);
-        this.gdgs = response;
-      }
-
-      connectedCallback(){
-        super.connectedCallback();
-
-        console.log("connesso ");
-
-        //var logo = new Image();
-        logo.crossOrigin='anonymous';
-        logo.src = "../img/frame.svg"
-
-        //var logoWtm = new Image();
-        logoWtm.crossOrigin = 'anonymous';
-        logoWtm.src = "../img/logow.svg";
-        logoWtm.onload = function() { console.log("Caricato"); };
-
-        this.items = items;
-        gdgOption = this.$.gdgOption;
-        yourCountry = this.$.countryOption;
-        console.log(items);
-
-      }
-      _gdgsChanged(newValue, oldValue){
-        console.log("gdgs è cambiato");
-        console.log(newValue);
-      }
-      
-      downloadGdgList(){
-
-          $.ajax( { url: "https://hub.gdgx.io/api/v1/chapters/country/" + yourCountry.selected +  "?perpage=999&fields=_id,name&asc=-1",
-                  type: "GET",
-                  dataType: "jsonp",
-                  success: function(result)
-                  {
-                      console.log("scaricato");
-                      // Your external method.
-                      var getTemplate = function(){
-                        var editor = document.querySelector("avatar-app");
-                        editor.set('gdgDisabled', false);
-                        return editor.set('gdgs', result);
-                      }
-                      getTemplate();
-                   
-                  },
-                  //async: false,
-                  error: function(error){
-                      console.log(error);
-                     
-                  }
-                }
-              );
-      }
-   
-
-      draw(ev) {
-        console.log(ev);
-        canvas;
-        ctx = canvas.getContext('2d');
-        img = new Image();
-
-        if(this.$.uploadimage.files[0] == null) return;
-
-        f = this.$.uploadimage.files[0];
-        this.imageName = f;
-        url = window.URL || window.webkitURL;
-        src = url.createObjectURL(f);
-        squareCrop = this.$.squareCrop;
-        colorSet = this.$.colorSet;
-        wtm = this.$.wtm;
-        myImage = this.$.myImage;
-        gdgOption = this.$.gdgOption;
-        textColor = this.$.color;
-
-        img.src = src;
-
-        img.onload = function() {
-
-            // if(squareCrop.checked){
-
-            //   canvas.width=500;
-            //   canvas.height=500;
-
-            //   var sourceX = 500;
-            //   var sourceY = 0;
-            //   var sourceWidth = 500;
-            //   var sourceHeight = 500;
-            //   var destWidth = sourceWidth;
-            //   var destHeight = sourceHeight;
-            //   var destX = canvas.width / 2 - destWidth / 2;
-            //   var destY = canvas.height / 2 - destHeight / 2;
-
-            //   ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-
-            // }
-            if(squareCrop.checked){
-              console.log(img.width, img.height);
-
-
-              canvas.width=600;
-              canvas.height=600;
-
-              var sourceX = 0;
-              var sourceY = 0;
-              var sourceWidth = 600;
-              var sourceHeight = 600;
-              var destWidth = sourceWidth;
-              var destHeight = sourceHeight;
-              var destX = canvas.width / 2 - destWidth / 2;
-              var destY = canvas.height / 2 - destHeight / 2;
-
-              ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-
-            }
-            // else if(img.width > 500){
-
-            //   canvas.width=500;
-            //   canvas.height=img.height / img.width * 500;
-            //   ctx.drawImage(img,0,0,500,img.height / img.width * 500);
-
-            // }
-            // else if(img.height > 500){
-
-            //   canvas.height=500;
-            //   canvas.width=img.height / img.width * 500;
-            //   ctx.drawImage(img,0,0,500,img.height / img.width * 500);
-
-            // }
-            // else{
-
-            //   canvas.width=img.width;
-            //   canvas.height=img.height;
-            //   ctx.drawImage(img,0,0);
-
-            // }
-            else{
-              img.height=600;
-              img.width=600;
-              canvas.width=600;
-              canvas.height=600;
-              ctx.drawImage(img,0,0,600,img.height / img.width * 600);
-              //ctx.drawImage(img,0,0);
-            }
-
-            if(colorSet.checked){
-              var imageData = ctx.getImageData(0, 0, img.width, img.height);
-              var data = imageData.data;
-
-              for(var i = 0; i < data.length; i += 4) {
-                var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                // red
-                data[i] = brightness;
-                // green
-                data[i + 1] = brightness;
-                // blue
-                data[i + 2] = brightness;
-              }
-
-              // overwrite original image
-              ctx.putImageData(imageData, 0, 0);
-            }
-
-            logo.src = "../img/frame.svg";
-            //logo.onload = start;
-            logo.onload = function(){console.log("logo caricato"); start();};
-            url.revokeObjectURL(src);
-        };
-      }
-
+  class AvatarApp extends Polymer.Element {
+    static get is() {
+      return 'avatar-app';
+    }
+    static get properties() {
+      return {
+        prop1: {
+          type: String,
+          value: 'avatar-app'
+        },
+        items: {
+          type: Array,
+          notify: true,
+        },
+        gdgs: {
+          type: Array,
+          notify: true,
+          observer: '_gdgsChanged',
+        },
+        imageName: {
+          type: String,
+          notify: true,
+        },
+        ajaxResponse: {
+          observer: '_ajaxChanged'
+        },
+        ajaxError: {
+          observer: 'ajaxError'
+        },
+        downloadPath: {
+          type: String,
+          notify: true
+        },
+        gdgDisabled: {
+          type: Boolean,
+          notify: true,
+          value: true
+        },
+        newVersion: {
+          type: Boolean,
+          notify: true,
+          value: false
+        },
+      };
     }
 
-    window.customElements.define(AvatarApp.is, AvatarApp);
+    constructor() {
+      super();
+    }
+
+    setGdgs(value) {
+      this.gdgs = value;
+    }
+
+    _ajaxError(newValue, oldValue) {
+      console.log("ajax Error", newValue);
+    }
+
+    ajaxErrored(event) {
+      console.log("ajax errored", event);
+    }
+
+    _ajaxChanged(newValue, oldValue) {
+      console.log("ajax", newValue);
+    }
+
+    ajaxChanged(value) {
+      console.log("ajax cambiata", value);
+    }
+
+    handleResponse(response) {
+      console.log("responsse:", response);
+      this.gdgs = response;
+    }
+
+    toggleVersion() {
+      this.$.toast1.toggle();
+      location.reload(true); //reload the page from the server
+      this.newVersion = false;
+    }
+
+    letVersion() {
+      this.$.toast1.toggle();
+      this.newVersion = false;
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+
+      console.log("connesso ");
+
+      //var logo = new Image();
+      logo.crossOrigin = 'anonymous';
+      logo.src = "../img/frame.svg"
+
+      //var logoWtm = new Image();
+      logoWtm.crossOrigin = 'anonymous';
+      logoWtm.src = "../img/logow.svg";
+      logoWtm.onload = function() {
+        console.log("Caricato");
+      };
+
+      this.items = items;
+      gdgOption = this.$.gdgOption;
+      yourCountry = this.$.countryOption;
+      console.log(items);
+
+    }
+    _gdgsChanged(newValue, oldValue) {
+      console.log("gdgs è cambiato");
+      console.log(newValue);
+    }
+
+    downloadGdgList() {
+
+      $.ajax({
+        url: "https://hub.gdgx.io/api/v1/chapters/country/" + yourCountry.selected + "?perpage=999&fields=_id,name&asc=-1",
+        type: "GET",
+        dataType: "jsonp",
+        success: function(result) {
+          console.log("scaricato");
+          // Your external method.
+          var getTemplate = function() {
+            var editor = document.querySelector("avatar-app");
+            editor.set('gdgDisabled', false);
+            return editor.set('gdgs', result);
+          }
+          getTemplate();
+
+        },
+        //async: false,
+        error: function(error) {
+          console.log(error);
+
+        }
+      });
+    }
+
+    draw(ev) {
+      console.log(ev);
+      canvas;
+      ctx = canvas.getContext('2d');
+      img = new Image();
+
+      if (this.$.uploadimage.files[0] == null) return;
+
+      f = this.$.uploadimage.files[0];
+      this.imageName = f;
+      url = window.URL || window.webkitURL;
+      src = url.createObjectURL(f);
+      squareCrop = this.$.squareCrop;
+      colorSet = this.$.colorSet;
+      wtm = this.$.wtm;
+      myImage = this.$.myImage;
+      gdgOption = this.$.gdgOption;
+      textColor = this.$.color;
+
+      img.src = src;
+
+      img.onload = function() {
+
+        if (squareCrop.checked) {
+          console.log(img.width, img.height);
+
+          canvas.width = 600;
+          canvas.height = 600;
+
+          var sourceX = 0;
+          var sourceY = 0;
+          var sourceWidth = 600;
+          var sourceHeight = 600;
+          var destWidth = sourceWidth;
+          var destHeight = sourceHeight;
+          var destX = canvas.width / 2 - destWidth / 2;
+          var destY = canvas.height / 2 - destHeight / 2;
+
+          ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+
+        }
+        // else if(img.width > 500){
+
+        //   canvas.width=500;
+        //   canvas.height=img.height / img.width * 500;
+        //   ctx.drawImage(img,0,0,500,img.height / img.width * 500);
+
+        // }
+        // else if(img.height > 500){
+
+        //   canvas.height=500;
+        //   canvas.width=img.height / img.width * 500;
+        //   ctx.drawImage(img,0,0,500,img.height / img.width * 500);
+
+        // }
+        // else{
+
+        //   canvas.width=img.width;
+        //   canvas.height=img.height;
+        //   ctx.drawImage(img,0,0);
+
+        // }
+        else {
+          img.height = 600;
+          img.width = 600;
+          canvas.width = 600;
+          canvas.height = 600;
+          ctx.drawImage(img, 0, 0, 600, img.height / img.width * 600);
+          //ctx.drawImage(img,0,0);
+        }
+
+        if (colorSet.checked) {
+          var imageData = ctx.getImageData(0, 0, img.width, img.height);
+          var data = imageData.data;
+
+          for (var i = 0; i < data.length; i += 4) {
+            var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+            // red
+            data[i] = brightness;
+            // green
+            data[i + 1] = brightness;
+            // blue
+            data[i + 2] = brightness;
+          }
+
+          // overwrite original image
+          ctx.putImageData(imageData, 0, 0);
+        }
+
+        logo.src = "../img/frame.svg";
+        //logo.onload = start;
+        logo.onload = function() {
+          console.log("logo caricato");
+          start();
+        };
+        url.revokeObjectURL(src);
+      };
+    }
+
+  }
+
+  window.customElements.define(AvatarApp.is, AvatarApp);
   </script>
 </dom-module>
-

@@ -7,40 +7,33 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>GDG Avatar</title>
     <meta name="GDG Avatar" content="This tool allow the user to create simple GDG (Google Developer Group) avatar.">
-
+    <meta name="GDG Avatar" content="This tool allow user to create GDG (Google Developer Group) avatar.">
     <!--
       If deploying to a non-root path, replace href="/" with the full path to the project root.
       For example: href="/polymer-starter-kit/relative-path-example/"
     -->
     <base href="/">
-
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="manifest.json">
-
     <!-- See https://goo.gl/qRE0vM -->
     <meta name="theme-color" content="#03A9F4">
-
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="GDG Avatar">
-
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="GDG Avatar">
-
-
     <link rel="shortcut icon" href="../favicons/favicon.ico">
     <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
@@ -55,85 +48,87 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png">
-
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="../favicons/apple-touch-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#03A9F4">
     <meta name="msapplication-tap-highlight" content="no">
-
-    <!--<link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet" type="text/css">-->
-
-
-  <!-- Javascript Libs -->
-  <!--<script src="lib/js/jquery.min.js"></script>
-  <script src="lib/js/bootstrap.min.js"></script>-->
-  <!-- <script src="lib/js/jquery.dropdown.js"></script> -->
-  <!--<script src="lib/js/selectize.min.js"></script>-->
-
-  <!-- Style -->
-  <!--<link rel="stylesheet" href="lib/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="lib/css/bootstrap-material-design.min.css"/>
-  <link rel="stylesheet" href="lib/css/ripples.min.css"/>-->
-  <!-- <link rel="stylesheet" href="lib/css/jquery.dropdown.css"/> -->
-
-  <!--<script src="lib/js/ripples.min.js"></script>
-  <script src="lib/js/material.min.js"></script>-->
-
-  <!-- Font -->
-  <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-
-  
     <script src="../lib/js/jquery.min.js"></script>
-
     <script>
-      // Register the base URL
-      const baseUrl = document.querySelector('base').href;
+    // Register the base URL
+    const baseUrl = document.querySelector('base').href;
 
-      // Load and register pre-caching Service Worker
-      // if ('serviceWorker' in navigator) {
-      //   window.addEventListener('load', function() {
-      //     navigator.serviceWorker.register(baseUrl + 'service-worker.js');
-      //   });
-      // }
+    // Load and register pre-caching Service Worker
+    // if ('serviceWorker' in navigator) {
+    //   window.addEventListener('load', function() {
+    //     navigator.serviceWorker.register(baseUrl + 'service-worker.js');
+    //   });
+    // }
 
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js');
-      }
+    if ('serviceWorker' in navigator) {
+        //navigator.serviceWorker.register('/service-worker.js');
 
+        navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
+            if (!navigator.serviceWorker.controller) {
+                return;
+            }
+
+            if (reg.waiting) {
+                updateReady(reg.waiting);
+                return;
+            }
+
+            if (reg.installing) {
+                trackInstalling(reg.installing);
+                return;
+            }
+
+            reg.addEventListener('updatefound', function() {
+                trackInstalling(reg.installing);
+            });
+        });
+
+        trackInstalling = function(worker) {
+            var indexController = this;
+            worker.addEventListener('statechange', function() {
+                if (worker.state == 'installed') {
+                    updateReady(worker);
+                }
+            });
+        };
+
+        updateReady = function(worker) {
+            console.log("nuova versione!");
+
+            var editor = document.querySelector("avatar-app");
+            editor.set('newVersion', true);
+
+        };
+
+
+    }
     </script>
-
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    
-
     <!-- Load your application shell -->
     <link rel="import" href="src/avatar-app.html">
-    
-
-
-    
     <!-- Add any global styles for body, document, etc. -->
     <style>
-      body {
+    body {
         margin: 0;
         font-family: 'Roboto', 'Noto', sans-serif;
         line-height: 1.5;
         min-height: 100vh;
         background-color: #eeeeee;
-      }
-
+    }
     </style>
-  </head>
-  <body>
+</head>
 
-    
-    
+<body>
     <avatar-app></avatar-app>
     <noscript>
-      Please enable JavaScript to view this website.
+        Please enable JavaScript to view this website.
     </noscript>
     <!-- Built with love using Polymer Starter Kit -->
-
-  </body>
+</body>
 
 </html>
