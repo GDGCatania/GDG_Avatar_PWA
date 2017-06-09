@@ -65,27 +65,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // }
 
     if ('serviceWorker' in navigator) {
-        //navigator.serviceWorker.register('/service-worker.js');
 
         navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
+            console.log('Registration succeeded. Scope is ' + reg.scope);
             if (!navigator.serviceWorker.controller) {
+                console.log("no controller");
                 return;
             }
 
             if (reg.waiting) {
                 updateReady(reg.waiting);
+                console.log("waiting");
                 return;
             }
 
             if (reg.installing) {
+                console.log("istalling");
                 trackInstalling(reg.installing);
                 return;
             }
 
             reg.addEventListener('updatefound', function() {
+                console.log("update found");
                 trackInstalling(reg.installing);
             });
-        });
+        }).catch(function(error) {
+             // registration failed
+             console.log('Registration failed with ' + error);
+         });
 
         trackInstalling = function(worker) {
             var indexController = this;
@@ -97,8 +104,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
 
         updateReady = function(worker) {
-            console.log("nuova versione!");
 
+            console.log("update ready");
             var editor = document.querySelector("avatar-app");
             editor.set('newVersion', true);
 
