@@ -218,7 +218,7 @@
             <br class="break">
             <paper-checkbox id="wtm" on-click="draw">WTM</paper-checkbox>
             <br class="break">
-            <paper-checkbox id="squareCrop" on-click="draw">SquareCrop</paper-checkbox>
+            <paper-checkbox id="squareCrop" on-click="draw">ImageFit</paper-checkbox>
             <br class="break">
             <paper-checkbox id="color" on-click="draw">Black Text</paper-checkbox>
             <br class="break">
@@ -480,7 +480,7 @@
 
       img.onload = function() {
 
-        if (squareCrop.checked) {
+        if (!squareCrop.checked) {
 
           canvas.width = 600;
           canvas.height = 600;
