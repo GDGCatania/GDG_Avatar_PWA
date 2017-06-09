@@ -281,13 +281,11 @@
   var textColor;
 
   function start() {
-    console.log("scrivo testo...");
     if (gdgOption.selected == null) applyText(canvas, "GDG");
     else applyText(canvas, gdgOption.selected);
   }
 
   function applyText(canvas, text) {
-    console.log("il testo è " + text + textColor);
     var tempCanvas = document.createElement('canvas');
     var tempCtx = tempCanvas.getContext('2d');
     var cw, ch;
@@ -403,7 +401,6 @@
     }
 
     handleResponse(response) {
-      console.log("responsse:", response);
       this.gdgs = response;
     }
 
@@ -421,8 +418,6 @@
     connectedCallback() {
       super.connectedCallback();
 
-      console.log("connesso ");
-
       //var logo = new Image();
       logo.crossOrigin = 'anonymous';
       logo.src = "../img/frame.svg"
@@ -431,18 +426,12 @@
       logoWtm.crossOrigin = 'anonymous';
       logoWtm.src = "../img/logow.svg";
       logoWtm.onload = function() {
-        console.log("Caricato");
       };
 
       this.items = items;
       gdgOption = this.$.gdgOption;
       yourCountry = this.$.countryOption;
-      console.log(items);
 
-    }
-    _gdgsChanged(newValue, oldValue) {
-      console.log("gdgs è cambiato");
-      console.log(newValue);
     }
 
     downloadGdgList() {
@@ -452,7 +441,6 @@
         type: "GET",
         dataType: "jsonp",
         success: function(result) {
-          console.log("scaricato");
           // Your external method.
           var getTemplate = function() {
             var editor = document.querySelector("avatar-app");
@@ -471,7 +459,6 @@
     }
 
     draw(ev) {
-      console.log(ev);
       canvas;
       ctx = canvas.getContext('2d');
       img = new Image();
@@ -494,7 +481,6 @@
       img.onload = function() {
 
         if (squareCrop.checked) {
-          console.log(img.width, img.height);
 
           canvas.width = 600;
           canvas.height = 600;
@@ -562,7 +548,6 @@
         logo.src = "../img/frame.svg";
         //logo.onload = start;
         logo.onload = function() {
-          console.log("logo caricato");
           start();
         };
         url.revokeObjectURL(src);
