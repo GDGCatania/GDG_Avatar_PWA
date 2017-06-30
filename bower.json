@@ -1,7 +1,8 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "avatar-app",
   "authors": [
-    "The Polymer Authors"
+    "Maggio Alessandro (Tkd-Alex)", 
+    "Gabriele Messina (Harvey_Specter)"
   ],
   "license": "https://polymer.github.io/LICENSE.txt",
   "dependencies": {
