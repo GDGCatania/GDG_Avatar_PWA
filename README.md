@@ -6,5 +6,5 @@ This tool allow user to create GDG (Google Developer Group) avatar.
 ```sh
 $ bower install
 
-polymer serve
+$ polymer serve
 ```
