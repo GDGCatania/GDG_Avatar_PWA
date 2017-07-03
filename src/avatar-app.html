@@ -206,7 +206,7 @@
                 Upload your image
               </paper-button>
             </a>
-            <a href$="{{downloadPath}}" download="avatar.png" id="download">
+            <a href$="{{downloadPath}}" onClick="saveCanvas()" download="avatar.png" id="download">
               <paper-button raised id="downloadButton">
                 <!-- <iron-icon icon="communication:email"></iron-icon> -->
                 Download as .png
@@ -285,6 +285,15 @@
     if (gdgOption.selected == null) applyText(canvas, "GDG");
     else applyText(canvas, gdgOption.selected);
   }
+
+  function saveCanvas() {
+  	if(window.navigator.userAgent.indexOf("Edge") > -1){
+	  	console.log("download");
+		  var drawingFileName = "avatar" + Math.round( (new Date()).getTime() / 1000 ) + ".png"; // Produces a unique file name every second.
+
+		  window.navigator.msSaveBlob(canvas.msToBlob(), drawingFileName); // Save the user's drawing to a file.
+		} // saveCanvas
+	}
 
   function applyText(canvas, text) {
     var tempCanvas = document.createElement('canvas');
@@ -458,6 +467,7 @@
         }
       });
     }
+
 
     draw(ev) {
       canvas;
