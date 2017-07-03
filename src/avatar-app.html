@@ -172,7 +172,6 @@
 
 
     <div id="page" style="height:100vh; text-align:center; padding-top:10px;">
-
       <iron-image sizing="cover" id="header" preload fade src="../img/logo.svg"></iron-image>
 
       <div class="container">
@@ -203,13 +202,13 @@
               <paper-button raised id="uploadButton" stop-keyboard-event-propagation="true">
                 <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
 
-                <iron-icon icon="file-upload"></iron-icon>
+                <!-- <iron-icon icon="file-upload"></iron-icon> -->
                 Upload your image
               </paper-button>
             </a>
             <a href$="{{downloadPath}}" download="avatar.png" id="download">
               <paper-button raised id="downloadButton">
-                <iron-icon icon="file-download"></iron-icon>
+                <!-- <iron-icon icon="communication:email"></iron-icon> -->
                 Download as .png
               </paper-button>
             </a>
