@@ -19,6 +19,6 @@
     "rules": ["polymer-2"]
   },
   "builds": [{
-    "preset" : "es6-bundled"
+    "preset" : "es5-bundled"
   }]
 }

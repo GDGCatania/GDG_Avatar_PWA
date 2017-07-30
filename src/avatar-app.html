@@ -115,6 +115,7 @@
         color: white;
       }
 
+
       a {
         color: inherit;
         text-decoration: none;
@@ -202,13 +203,13 @@
               <paper-button raised id="uploadButton" stop-keyboard-event-propagation="true">
                 <input type="file" label="{{imageName}}" id="uploadimage" on-change="draw" accept="image/*;capture=camera">
 
-                 <iron-icon icon="file-upload"></iron-icon> 
+                 <iron-icon id="uplIcon" class="svgIcon" icon="file-upload"></iron-icon>
                 Upload your image
               </paper-button>
             </a>
             <a href$="{{downloadPath}}" onClick="saveCanvas()" download="avatar.png" id="download">
               <paper-button raised id="downloadButton">
-                 <iron-icon icon="file-download"></iron-icon> 
+                 <iron-icon id="dowIcon" class="svgIcon" icon="file-download"></iron-icon>
                 Download as .png
               </paper-button>
             </a>
@@ -427,6 +428,11 @@
 
     connectedCallback() {
       super.connectedCallback();
+
+      if(window.navigator.userAgent.indexOf("Edge") > -1){
+        this.$.dowIcon.style.display= "none";
+        this.$.uplIcon.style.display= "none";
+      }
 
       //var logo = new Image();
       logo.crossOrigin = 'anonymous';
