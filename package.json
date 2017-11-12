@@ -1,15 +1,27 @@
 {
-  "name": "polymer-starter-kit",
-  "license": "BSD-3-Clause",
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0"
+  "name": "GDG Avatar",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "material-ui": "^0.19.4",
+    "postcss": "^6.0.13",
+    "postcss-cssnext": "^3.0.2",
+    "react": "^16.0.0",
+    "react-avatar-editor": "^10.3.0",
+    "react-dom": "^16.0.0",
+    "react-materialize": "^1.0.15",
+    "react-scripts": "1.0.14",
+    "react-toolbox": "^2.0.0-beta.12",
+    "react-toolbox-themr": "^1.0.2"
   },
   "scripts": {
-    "lint": "npm run lint:javascript",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "toolbox": "react-toolbox-themr",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "postcss-loader": "^2.0.7"
   }
 }
