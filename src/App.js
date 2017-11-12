@@ -43,17 +43,17 @@ class App extends React.Component {
 
     var WtmToggled = (e, toggle) => {
       console.log("wtm", toggle);
-      this.state.wtm=!this.state.wtm;
+      this.setState({ wtm: !this.state.wtm });
     }
 
     var BWToggled = (e, toggle) => {
       console.log("black and white", toggle);
-      this.state.colorSet=!this.state.colorSet;
+      this.setState({ colorSet: !this.state.colorSet });
     }
 
     var BlackTextToggled = (e, toggle) => {
       console.log("back text", toggle);
-      this.state.blackText=!this.state.blackText;
+      this.setState({ blackText: !this.state.blackText });
     }
   
     var downloadImg = () =>{
@@ -74,26 +74,26 @@ class App extends React.Component {
       logoWtm.height = 600;
       logoWtm.crossOrigin = 'anonymous';
       logoWtm.src = './src/img/logow.svg'
-      this.state.logoWtm = logoWtm;
+      this.setState({ logoWtm: logoWtm });
 
   
       var logo = new Image();
       logo.crossOrigin = 'anonymous';
       logo.src = "./img/frame.svg";
       logo.onload = function() {
-        this.state.logo = logo;
+        this.setState({ logo: logo });
         console.log("setlogo");
       };
 
 
 
       var image = document.getElementById("inputImage").files[0];
-      this.state.image = image;
+      this.setState({ image: image });
       console.log("image", image);
       var canvas = document.getElementById("imgCanvas");
-      this.state.canvas =canvas;
+      this.setState({ canvas: canvas });
       var ctx = canvas.getContext('2d');
-      this.state.ctx = ctx;
+      this.setState({ ctx: ctx });
       var url = window.URL || window.webkitURL;
       var src = url.createObjectURL(image);
       var img = new Image();
@@ -109,10 +109,10 @@ class App extends React.Component {
     }
   
     var setCanvaState = (ctx, canvas, img, first) =>{
-      this.state.ctx = ctx;
-      this.state.canvas = canvas;
-      this.state.img = img;
-      this.state.canvasUrl = this.state.canvas.toDataURL();
+      this.setState({ ctx: ctx });
+      this.setState({ canvas: canvas });
+      this.setState({ img: img });
+      this.setState({ canvasUrl: canvas.toDataURL() });
     }
 
     var mouseUp = () =>{
@@ -122,8 +122,8 @@ class App extends React.Component {
       var cropper = document.getElementsByClassName("canvas-panel")[0].children[0];
       var canvas = document.getElementById("imgCanvas");
       var ctx = canvas.getContext("2d")
-      this.state.canvas  =canvas;
-      this.state.ctx = ctx;
+      this.setState({ canvas: canvas });
+      this.setState({ ctx: ctx });
       var colorSet = this.state.colorSet;
       var wtm = this.state.wtm;
       var cropping = this.editor.getCroppingRect();
