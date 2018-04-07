@@ -181,21 +181,8 @@
 
         <div id="myForm" class="flexchild">
 
-          <paper-dropdown-menu label="Your Country" id="labelCountry" style="width:100%">
-            <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="countryOption" on-click="downloadGdgList">
-              <template is="dom-repeat" items="{{items}}">
-                <paper-item lang="{{item.id}}">{{item.name}}</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
 
-          <paper-dropdown-menu label="Your GDG" style="width:100%" disabled="{{gdgDisabled}}" on-selected-item-changed="draw">
-            <paper-listbox slot="dropdown-content" attr-for-selected="lang" id="gdgOption">
-              <template is="dom-repeat" items="{{gdgs.items}}">
-                <paper-item lang="{{item.name}}">{{item.name}}</paper-item>
-              </template>
-            </paper-listbox>
-          </paper-dropdown-menu>
+          <paper-input value="{{gdgName}}" label="Insert GDG name" id="gdgOption" on-input="draw"></paper-input>
 
           <div class="container form flexchild">
 
@@ -283,8 +270,8 @@
   var textColor;
 
   function start() {
-    if (gdgOption.selected == null) applyText(canvas, "GDG");
-    else applyText(canvas, gdgOption.selected);
+    if (gdgOption.value == null) applyText(canvas, "GDG");
+    else applyText(canvas, "GDG "+ gdgOption.value);
   }
 
   function saveCanvas() {
@@ -451,27 +438,7 @@
     }
 
     downloadGdgList() {
-
-      $.ajax({
-        url: "https://hub.gdgx.io/api/v1/chapters/country/" + yourCountry.selected + "?perpage=999&fields=_id,name&asc=-1",
-        type: "GET",
-        dataType: "jsonp",
-        success: function(result) {
-          // Your external method.
-          var getTemplate = function() {
-            var editor = document.querySelector("avatar-app");
-            editor.set('gdgDisabled', false);
-            return editor.set('gdgs', result);
-          }
-          getTemplate();
-
-        },
-        //async: false,
-        error: function(error) {
-          console.log(error);
-
-        }
-      });
+      return false;
     }
 
 
