@@ -24,9 +24,8 @@
 }
 
 .canvas-panel{
-  width: 40%;
   margin: auto;
-  margin-top: 25px;
+  text-align: center;
 }
 
 #imgCanvas{
@@ -62,6 +61,7 @@
 }
 #inputImage{
   position: absolute;
+  z-index: 200;
   top: 0;
   left: 0; 
   width: 100%;
