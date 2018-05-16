@@ -81,7 +81,7 @@ class CanvasPanel extends React.Component {
         return (
           <div>
             <FlatButton style={{margin:"0", height:"50vh", width:"100%"}} backgroundColor={"light-gray"} label="Upload Image" primary={true} icon={<UploadIcon />}>
-              <input id="inputImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
+              <input id="inputImage" label="uploadImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
             </FlatButton>
             <p>Recommended resolution for your photo is 600x600.</p>
           </div>

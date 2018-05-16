@@ -119,7 +119,7 @@ class App extends React.Component {
         </MobileView>
         
         
-        <img style={{height:"15em", margin:"-50px"}} src="./img/logo.svg"/>
+        <img style={{height:"15em", margin:"-50px"}} alt="GDG logo" src="./img/logo.svg"/>
 
         <div style={contentStyle}>
       
