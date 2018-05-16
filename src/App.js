@@ -8,8 +8,10 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setImage } from '../src/redux/actions/index';
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 import {Step, 
   Slider,
+  IconButton,
   FlatButton
 }from '../node_modules/material-ui';
 import './style/App.css';
@@ -61,36 +63,58 @@ class App extends React.Component {
     return (     
       <Provider store={this.props.store}>
       <div className="App" style={{textAlign:"center",}}>
-        <BottomNavigation style={{position: "fixed", justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} selectedIndex={stepIndex+1}>
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            onClick={this.handlePrev}
-            style={{flex:"1 0 0", margin: "auto"}}  
+        <div className="fork">
+          <a href="https://github.com/GDGCatania/GDG_Avatar_PWA"><img src="./img/GitHub.png" alt="fork on GitHub" height="50" width="50"/></a>
+        </div>
+        <BrowserView device={isBrowser}>
+          <BottomNavigation style={{position: "fixed", width: "100vw",justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} selectedIndex={stepIndex+1}>
+            <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              onClick={this.handlePrev}
+              style={{flex:"1 0 0", margin: "auto"}}  
+              />
+            <BottomNavigationItem
+              icon={dotIcon}
+              style={{flex:"0 0 0", margin:"auto"}}
             />
-          <BottomNavigationItem
-            icon={dotIcon}
-            style={{flex:"0 0 0", margin:"auto"}}
-          />
-          <BottomNavigationItem
-            icon={dotIcon}
-            style={{flex:"0 0 0", margin:"auto"}}
-          />
-          <BottomNavigationItem
-            icon={dotIcon}
-            style={{flex:"0 0 0", margin:"auto"}}
-          />
-          <BottomNavigationItem
-            icon={dotIcon}
-            style={{flex:"0 0 0", margin:"auto"}}
-          />
-          <FlatButton
-            label={stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
-            primary={true}
-            style={{flex:"1 0 0",  margin:"auto"}}
-            onClick={this.handleNext}
+            <BottomNavigationItem
+              icon={dotIcon}
+              style={{flex:"0 0 0", margin:"auto"}}
             />
-        </BottomNavigation>
+            <BottomNavigationItem
+              icon={dotIcon}
+              style={{flex:"0 0 0", margin:"auto"}}
+            />
+            <BottomNavigationItem
+              icon={dotIcon}
+              style={{flex:"0 0 0", margin:"auto"}}
+            />
+            <FlatButton
+              label={stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
+              primary={true}
+              style={{flex:"1 0 0",  margin:"auto"}}
+              onClick={this.handleNext}
+            />
+          </BottomNavigation>
+        </BrowserView>
+        <MobileView device={isMobile}>
+        <BottomNavigation style={{position: "fixed",  width: "100vw",justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} >
+            <FlatButton
+              label="Back"
+              disabled={stepIndex === 0}
+              onClick={this.handlePrev}
+              style={{flex:"1 0 0", margin: "auto"}}  
+              />
+            <FlatButton
+              label={stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
+              primary={true}
+              style={{flex:"1 0 0",  margin:"auto"}}
+              onClick={this.handleNext}
+            />
+          </BottomNavigation>
+        </MobileView>
+        
         
         <img style={{height:"15em", margin:"-50px"}} src="./img/logo.svg"/>
 

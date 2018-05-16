@@ -1,5 +1,8 @@
 
-
+.App{
+  width: 80vw;
+  margin: auto;
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -23,6 +26,15 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.fork{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin:8px;
+  line-height: 0.5;
+  font-size: 0.7em;
 }
 
 .canvas-panel{
@@ -62,21 +74,19 @@
   opacity: 0;
 }
 
-.stylePanel{
+.stylePanel.desktop{
   display: flex;
   justify-content: center;
 }
-
-
+.stylePanel.mobile{
+  display: inline;
+}
 
 
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-
   .canvas-panel{
     width: 100%;
   }
-
-
 }

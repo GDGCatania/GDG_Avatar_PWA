@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 import {setBW, setWTM, setTextColor, setCanvasUrl } from '../redux/actions/index';
 import {Step, 
         TextField,
@@ -127,7 +128,8 @@ class Canvas extends React.Component {
 
     return( 
     <div>  
-      <div className="stylePanel">
+      <BrowserView device={isBrowser}>
+      <div className="stylePanel desktop">
         <Checkbox 
           label="WTM"
           checked={this.props.wtm}
@@ -151,6 +153,33 @@ class Canvas extends React.Component {
         />
         <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
       </div>
+      </BrowserView>
+      <MobileView device={isMobile}>
+      <div className="stylePanel mobile">
+        <Checkbox 
+          label="WTM"
+          checked={this.props.wtm}
+          onCheck={WtmToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "100%"}}
+        />
+        <Checkbox 
+          label="Black & White"
+          checked={this.props.bw}
+          onCheck={BWToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "100%"}}
+        />
+        <Checkbox 
+          label="Black Text"
+          checked={this.props.blackText}
+          onCheck={BlackTextToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "100%"}}
+        />
+        <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
+      </div>
+      </MobileView>
       <canvas id="imgCanvas"></canvas>
     </div>
     );
