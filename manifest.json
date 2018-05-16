@@ -1,0 +1,21 @@
+{
+  "name": "GDG Avatar",
+  "short_name": "GDG avatar",
+  "start_url": "./?homescreen=1",
+  "display": "standalone",
+  "theme_color": "#03A9F4",
+  "background_color": "#03A9F4",
+  "icons": [
+    {
+      "src": "./src/favicons/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./src/favicons/favicon-196x196.png",
+      "sizes": "196x196",
+      "type": "image/png"
+    }
+  ]
+
+}

@@ -63,10 +63,10 @@ class App extends React.Component {
     return (     
       <Provider store={this.props.store}>
       <div className="App" style={{textAlign:"center",}}>
-        <div className="fork">
-          <a href="https://github.com/GDGCatania/GDG_Avatar_PWA"><img src="./img/GitHub.png" alt="fork on GitHub" height="50" width="50"/></a>
-        </div>
         <BrowserView device={isBrowser}>
+          <div className="fork">
+            <a href="https://github.com/GDGCatania/GDG_Avatar_PWA"><img src="./img/GitHub.png" alt="fork on GitHub" height="50" width="50"/></a>
+          </div>
           <BottomNavigation style={{position: "fixed", width: "100vw",justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} selectedIndex={stepIndex+1}>
             <FlatButton
               label="Back"
@@ -99,6 +99,9 @@ class App extends React.Component {
           </BottomNavigation>
         </BrowserView>
         <MobileView device={isMobile}>
+          <div className="fork">
+            <a href="https://github.com/GDGCatania/GDG_Avatar_PWA"><img src="./img/GitHub.png" alt="fork on GitHub" height="25" width="25"/></a>
+          </div>
         <BottomNavigation style={{position: "fixed",  width: "100vw",justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} >
             <FlatButton
               label="Back"
