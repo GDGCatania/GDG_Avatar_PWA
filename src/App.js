@@ -1,32 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import './style/App.css';
-import SettingsPanel from './components/SettingsPanel'
 import CanvasPanel from './components/CanvasPanel'
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
 import FontIcon from 'material-ui/FontIcon';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import AvatarEditor from 'react-avatar-editor';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setImage } from '../src/redux/actions/index';
 import {Step, 
-        Slider,
-        Stepper, 
-        StepLabel,
-        RaisedButton, 
-        FloatingActionButton,
-        AppBar, 
-        Drawer, 
-        IconMenu, 
-        MenuItem, 
-        IconButton, 
-        FlatButton, 
-        Toggle
+  Slider,
+  FlatButton
 }from '../node_modules/material-ui';
+import './style/App.css';
 import { __esModule } from 'recompose/pure';
 
 const dotIcon = <FontIcon style={{fontSize: "8px"}} className="material-icons">lens</FontIcon>;
@@ -34,7 +20,7 @@ const dotIcon = <FontIcon style={{fontSize: "8px"}} className="material-icons">l
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {stepIndex: 0, finished: false}; 
+    this.state = {stepIndex: 0}; 
   }
 
   componentDidUpdate(e){
@@ -52,7 +38,6 @@ class App extends React.Component {
     if(stepIndex == 0 && this.props.image==false)return alert("Please upload an image");
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
     });
   };
 
@@ -66,7 +51,7 @@ class App extends React.Component {
 
 
   render() {
-    const {finished, stepIndex} = this.state;
+    const { stepIndex} = this.state;
     const contentStyle = {margin: '0 16px 64px 16px'};
       
     var downloadImg = () =>{

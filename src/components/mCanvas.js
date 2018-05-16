@@ -1,30 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import UploadIcon from 'material-ui/svg-icons/file/file-upload';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import {setBW, setWTM, setTextColor, setCanvasUrl } from '../redux/actions/index';
-import AvatarEditor from 'react-avatar-editor';
 import {Step, 
-        Stepper, 
-        StepLabel,
         TextField,
-        RaisedButton, 
-        FloatingActionButton,
-        AppBar, 
-        Drawer, 
-        IconMenu, 
-        MenuItem, 
-        IconButton, 
-        FlatButton, 
         Checkbox 
 }from 'material-ui';
 import { __esModule } from 'recompose/pure';
-import '../style/App.css'
 import { relative } from 'path';
+import '../style/App.css'
 
 
 class Canvas extends React.Component {
@@ -57,8 +43,6 @@ class Canvas extends React.Component {
     console.log("draw", canvas, ctx, this.props.imageUrl);
     var canvas = document.getElementById("imgCanvas");
     var ctx = canvas.getContext("2d");
-    //this.setState({ canvas: canvas });
-    //this.setState({ ctx: ctx });
     var name = this.state.name;
     var blackText = this.props.blackText;
     var bw = this.props.bw;

@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import Canvas from './mCanvas'
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setCropping, setImage, setImageUrl } from '../redux/actions/index';
 import AvatarEditor from 'react-avatar-editor';
 import {Step, 
-        Stepper,
-        Slider, 
-        StepLabel,
-        RaisedButton, 
-        FloatingActionButton,
-        AppBar, 
-        Drawer, 
-        IconMenu, 
-        MenuItem, 
-        IconButton, 
-        FlatButton, 
-        Toggle
+        Slider,
+        FlatButton
 }from 'material-ui';
 import { __esModule } from 'recompose/pure';
 import '../style/App.css'
@@ -31,7 +19,7 @@ import '../style/App.css'
 class CanvasPanel extends React.Component {
   constructor(props){
     super(props);
-    this.state = { slider:1, scale: 1, finished: false}; 
+    this.state = { slider:1, scale: 1}; 
   }
 
   componentWillMount(nextProps, nextState) {
@@ -72,7 +60,6 @@ class CanvasPanel extends React.Component {
           onMouseUp={setCrop}
           width={600}
           onImageReady={setCrop}
-          // crossOrigin={"Anonymous"}
           height={600}
           border={0}
           color={[255, 255, 255, 0.6]} // RGBA
@@ -85,8 +72,6 @@ class CanvasPanel extends React.Component {
       var image = document.getElementById("inputImage").files[0];
       var url = window.URL || window.webkitURL;
       var src = url.createObjectURL(image);
-
-
       this.props.dispatch(setImageUrl(src));
       this.props.dispatch(setImage(true));
     }
