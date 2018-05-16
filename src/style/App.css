@@ -1,3 +1,5 @@
+
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -28,29 +30,20 @@
   text-align: center;
 }
 
+
 #imgCanvas{
- /* height: 600px ;
-  margin-top: 25px;
-  width: 600px;
-  background-color: red;*/
   height: 600px;
   width: 600px;
   background-color: red;
   position: relative;
   margin-top: 25px;
-  /*padding-top: 50%; 1:1 Aspect Ratio */
 }
 
 #imgCrop{
- /* height: 600px ;
-  margin-top: 25px;
-  width: 600px;
-  background-color: red;*/
   background-color: red;
   position: relative;
   margin-top: 25px;
   width: 100%;
-  /*padding-top: 50%; 1:1 Aspect Ratio */
 }
 
 #menuToggle{
@@ -69,7 +62,10 @@
   opacity: 0;
 }
 
-
+.stylePanel{
+  display: flex;
+  justify-content: center;
+}
 
 
 

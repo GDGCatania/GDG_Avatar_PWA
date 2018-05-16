@@ -20,7 +20,7 @@ import {Step,
         MenuItem, 
         IconButton, 
         FlatButton, 
-        Toggle
+        Checkbox 
 }from 'material-ui';
 import { __esModule } from 'recompose/pure';
 import '../style/App.css'
@@ -30,7 +30,7 @@ import { relative } from 'path';
 class Canvas extends React.Component {
   constructor(props){
     super(props);
-    this.state = {timeout: null, name:"GDG",finished: false}; 
+    this.state = {timeout: null, name:"",finished: false}; 
   }
 
   componentWillMount(nextProps, nextState) {
@@ -49,53 +49,58 @@ class Canvas extends React.Component {
     this.drawCanvas();
   }
 
+  componentDidUpdate(){
+    this.drawCanvas();
+  }
+
   drawCanvas(){
-    console.log("draw",document.getElementById("imgCanvas"));
+    console.log("draw", canvas, ctx, this.props.imageUrl);
     var canvas = document.getElementById("imgCanvas");
     var ctx = canvas.getContext("2d");
-    this.setState({ canvas: canvas });
-    this.setState({ ctx: ctx });
+    //this.setState({ canvas: canvas });
+    //this.setState({ ctx: ctx });
     var name = this.state.name;
     var blackText = this.props.blackText;
     var bw = this.props.bw;
     var wtm = this.props.wtm;
     var frame = this.state.frame;
     var cropping = this.props.cropping;
+    var logoWtm = this.state.logoWtm;
 
     var img = new Image();
+    img.addEventListener('load', () => {
+      if (true) {
+        canvas.height = canvas.width;
+        ctx.drawImage(
+          img,
+          -cropping.x*(canvas.width/cropping.width),
+          -cropping.y*(canvas.height/cropping.height),
+          canvas.width/cropping.width,
+          canvas.height/cropping.height
+        );
+      }
+      if (bw){ 
+        canvas.setAttribute("style", "filter: grayscale(100%)");
+      }else {
+        canvas.setAttribute("style", "");
+      }
+  
+      if (blackText) ctx.fillStyle = 'black';
+      else ctx.fillStyle = 'white';
+      ctx.font = "500 25px product sans";
+      var textWidth = ctx.measureText(name).width;
+      ctx.fillText(name, canvas.height - textWidth - 10, 30);
+  
+      if (wtm) {
+        var widthWMT = 400;
+        var new_height2 = logoWtm.height / logoWtm.width * widthWMT;
+        ctx.drawImage(logoWtm, 10, 10, widthWMT, new_height2);
+      }
+      var new_height = frame.height / frame.width * canvas.width;
+      ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);    
+      this.props.dispatch(setCanvasUrl(canvas.toDataURL()));
+    }, false);
     img.src = this.props.imageUrl;
-
-    if (true) {
-      canvas.height = canvas.width;
-      ctx.drawImage(
-        img,
-        -cropping.x*(canvas.width/cropping.width),
-        -cropping.y*(canvas.height/cropping.height),
-        canvas.width/cropping.width,
-        canvas.height/cropping.height
-      );
-    }
-    if (bw){ 
-      canvas.setAttribute("style", "filter: grayscale(100%)");
-    }else {
-      canvas.setAttribute("style", "");
-    }
-
-    if (blackText) ctx.fillStyle = 'black';
-    else ctx.fillStyle = 'white';
-    ctx.font = "500 50px product sans";
-    var textWidth = ctx.measureText(name).width;
-    ctx.fillText(name, canvas.height - textWidth - 10, 50);
-
-    if (wtm) {
-      var logoWtm = this.state.logoWtm;
-      var widthWMT = 400;
-      var new_height2 = logoWtm.height / logoWtm.width * widthWMT;
-      ctx.drawImage(logoWtm, 10, 10, widthWMT, new_height2);
-    }
-    var new_height = frame.height / frame.width * canvas.width;
-    ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);    
-    this.props.dispatch(setCanvasUrl(canvas.toDataURL()));
   }
 
   render() {
@@ -122,38 +127,46 @@ class Canvas extends React.Component {
 
     const setName = (event, newValue) => {
       clearTimeout(this.state.timeout);
-      this.setState({name: "GDG " + newValue});
+      this.setState({name: newValue});
 
       this.setState({timeout: setTimeout(() => this.drawCanvas(), 500)});
     };
 
+    const inputStyle = {
+			height: "36px",
+			width: "100%",
+			borderColor: "lightgray",
+			borderStyle: "solid",
+      borderRadius: "5px",
+			borderWidth: "1px",
+		};
+
     return( 
     <div>  
-
-      <Toggle
-        label="WTM"
-        toggled={this.props.wtm}
-        onToggle={WtmToggled}
-        labelPosition="right"
-        style={{marginTop: 16, width: "30%"}}
-      />
-      <Toggle
-        label="Black & White"
-        toggled={this.props.bw}
-        onToggle={BWToggled}
-        labelPosition="right"
-        style={{marginTop: 16, width: "30%"}}
-      />
-      <Toggle
-        label="Black Text"
-        toggled={this.props.blackText}
-        onToggle={BlackTextToggled}
-        labelPosition="right"
-        style={{marginTop: 16, width: "30%"}}
-      />
-
-      <TextField onChange={setName} inputStyle={{marginTop: 16, width: "30%"}} hint={"GDG name"}></TextField>
-
+      <div className="stylePanel">
+        <Checkbox 
+          label="WTM"
+          checked={this.props.wtm}
+          onCheck={WtmToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "15%"}}
+        />
+        <Checkbox 
+          label="Black & White"
+          checked={this.props.bw}
+          onCheck={BWToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "15%"}}
+        />
+        <Checkbox 
+          label="Black Text"
+          checked={this.props.blackText}
+          onCheck={BlackTextToggled}
+          labelPosition="right"
+          style={{marginTop: 16, width: "15%"}}
+        />
+        <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
+      </div>
       <canvas id="imgCanvas"></canvas>
     </div>
     );

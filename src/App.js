@@ -6,7 +6,9 @@ import SettingsPanel from './components/SettingsPanel'
 import CanvasPanel from './components/CanvasPanel'
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
+import FontIcon from 'material-ui/FontIcon';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import AvatarEditor from 'react-avatar-editor';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
@@ -27,14 +29,26 @@ import {Step,
 }from '../node_modules/material-ui';
 import { __esModule } from 'recompose/pure';
 
+const dotIcon = <FontIcon style={{fontSize: "8px"}} className="material-icons">lens</FontIcon>;
+
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {stepIndex: 0, finished: false}; 
   }
+
+  componentDidUpdate(e){
+    console.log(e);
+    if(this.state.stepIndex == 0 && this.props.image==true) this.handleNext();
+  }
   
   handleNext = () => {
     const {stepIndex} = this.state;
+    if(stepIndex == 3) {
+      this.setState({stepIndex: 0});
+      this.props.dispatch(setImage(false));
+      return false;
+    }
     if(stepIndex == 0 && this.props.image==false)return alert("Please upload an image");
     this.setState({
       stepIndex: stepIndex + 1,
@@ -44,6 +58,7 @@ class App extends React.Component {
 
   handlePrev = () => {
     const {stepIndex} = this.state;
+    if(stepIndex == 1) this.props.dispatch(setImage(false));
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
@@ -52,7 +67,7 @@ class App extends React.Component {
 
   render() {
     const {finished, stepIndex} = this.state;
-    const contentStyle = {margin: '0 16px'};
+    const contentStyle = {margin: '0 16px 64px 16px'};
       
     var downloadImg = () =>{
       console.log("download", this.state.canvasUrl);
@@ -61,54 +76,45 @@ class App extends React.Component {
     return (     
       <Provider store={this.props.store}>
       <div className="App" style={{textAlign:"center",}}>
+        <BottomNavigation style={{position: "fixed", justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} selectedIndex={stepIndex+1}>
+          <FlatButton
+            label="Back"
+            disabled={stepIndex === 0}
+            onClick={this.handlePrev}
+            style={{flex:"1 0 0", margin: "auto"}}  
+            />
+          <BottomNavigationItem
+            icon={dotIcon}
+            style={{flex:"0 0 0", margin:"auto"}}
+          />
+          <BottomNavigationItem
+            icon={dotIcon}
+            style={{flex:"0 0 0", margin:"auto"}}
+          />
+          <BottomNavigationItem
+            icon={dotIcon}
+            style={{flex:"0 0 0", margin:"auto"}}
+          />
+          <BottomNavigationItem
+            icon={dotIcon}
+            style={{flex:"0 0 0", margin:"auto"}}
+          />
+          <FlatButton
+            label={stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
+            primary={true}
+            style={{flex:"1 0 0",  margin:"auto"}}
+            onClick={this.handleNext}
+            />
+        </BottomNavigation>
         
         <img style={{height:"15em", margin:"-50px"}} src="./img/logo.svg"/>
 
-        <Stepper activeStep={stepIndex}>
-          <Step>
-            <StepLabel>Upload an image</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Crop your image</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Add some style</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Download it!</StepLabel>
-          </Step>
-        </Stepper>
-        
-
         <div style={contentStyle}>
-          {finished ? (
-            <p>
-              <a href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  this.setState({stepIndex: 0, finished: false});
-                }}>
-                Click here
-              </a>to create another avatar.
-            </p>
-          ) : (
-            <div style={{textAlign: "center", marginBottom: "16px"}}>
-              <CanvasPanel scale={this.state.slider} stepIndex={stepIndex} image={this.props.image}></CanvasPanel>
-              <div style={{marginTop: 12}}>
-                <RaisedButton
-                  label="Back"
-                  disabled={stepIndex === 0}
-                  onClick={this.handlePrev}
-                  style={{marginRight: 12}}
-                  />
-                <RaisedButton
-                  label={stepIndex === 3 ? 'Finish' : 'Next'}
-                  primary={true}
-                  onClick={this.handleNext}
-                  />
-              </div>
-            </div>
-          )}
+      
+          <div style={{textAlign: "center"}}>
+            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}></CanvasPanel>
+          </div>
+        
         </div>
       </div>
       </Provider>

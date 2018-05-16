@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import UploadIcon from 'material-ui/svg-icons/file/file-upload';
+import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Canvas from './mCanvas'
 import { connect } from 'react-redux';
@@ -93,9 +94,12 @@ class CanvasPanel extends React.Component {
     switch (this.props.stepIndex) {
       case 0:
         return (
-          <FlatButton style={{margin:"16px"}} label="Upload Image" primary={true} icon={<UploadIcon />}>
-            <input id="inputImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
-           </FlatButton>
+          <div>
+            <FlatButton style={{margin:"0", height:"50vh", width:"100%"}} backgroundColor={"light-gray"} label="Upload Image" primary={true} icon={<UploadIcon />}>
+              <input id="inputImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
+            </FlatButton>
+            <p>Recommended resolution for your photo is 600x600.</p>
+          </div>
         );
       case 1:
         return (
@@ -119,9 +123,8 @@ class CanvasPanel extends React.Component {
       case 3:
         return(
         <a href={this.props.canvasUrl} onClick={downloadImg} download="avatar.png" id="download">
-          <FloatingActionButton >
-            <ContentAdd />
-          </FloatingActionButton>
+          <FlatButton style={{margin:"0", height:"50vh", width:"100%"}} backgroundColor={"light-gray"} label="Download Avatar!" primary={true} icon={<DownloadIcon />}>
+          </FlatButton>
         </a>
         );
       default:
