@@ -65,7 +65,20 @@ class Canvas extends React.Component {
         );
       }
       if (bw){ 
-        canvas.setAttribute("style", "filter: grayscale(100%)");
+          var imageData = ctx.getImageData(0, 0, img.width, img.height);
+          var data = imageData.data;
+
+          for (var i = 0; i < data.length; i += 4) {
+            var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+            // red
+            data[i] = brightness;
+            // green
+            data[i + 1] = brightness;
+            // blue
+            data[i + 2] = brightness;
+          }
+          // overwrite original image
+          ctx.putImageData(imageData, 0, 0);
       }else {
         canvas.setAttribute("style", "");
       }
@@ -129,56 +142,56 @@ class Canvas extends React.Component {
     return( 
     <div>  
       <BrowserView device={isBrowser}>
-      <div className="stylePanel desktop">
-        <Checkbox 
-          label="WTM"
-          checked={this.props.wtm}
-          onCheck={WtmToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "15%"}}
-        />
-        <Checkbox 
-          label="Black & White"
-          checked={this.props.bw}
-          onCheck={BWToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "15%"}}
-        />
-        <Checkbox 
-          label="Black Text"
-          checked={this.props.blackText}
-          onCheck={BlackTextToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "15%"}}
-        />
-        <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
-      </div>
+        <div className="stylePanel desktop">
+          <Checkbox 
+            label="WTM"
+            checked={this.props.wtm}
+            onCheck={WtmToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "15%"}}
+          />
+          <Checkbox 
+            label="Black & White"
+            checked={this.props.bw}
+            onCheck={BWToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "15%"}}
+          />
+          <Checkbox 
+            label="Black Text"
+            checked={this.props.blackText}
+            onCheck={BlackTextToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "15%"}}
+          />
+          <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
+        </div>
       </BrowserView>
       <MobileView device={isMobile}>
-      <div className="stylePanel mobile">
-        <Checkbox 
-          label="WTM"
-          checked={this.props.wtm}
-          onCheck={WtmToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "100%"}}
-        />
-        <Checkbox 
-          label="Black & White"
-          checked={this.props.bw}
-          onCheck={BWToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "100%"}}
-        />
-        <Checkbox 
-          label="Black Text"
-          checked={this.props.blackText}
-          onCheck={BlackTextToggled}
-          labelPosition="right"
-          style={{marginTop: 16, width: "100%"}}
-        />
-        <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
-      </div>
+        <div className="stylePanel mobile">
+          <Checkbox 
+            label="WTM"
+            checked={this.props.wtm}
+            onCheck={WtmToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "100%"}}
+          />
+          <Checkbox 
+            label="Black & White"
+            checked={this.props.bw}
+            onCheck={BWToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "100%"}}
+          />
+          <Checkbox 
+            label="Black Text"
+            checked={this.props.blackText}
+            onCheck={BlackTextToggled}
+            labelPosition="right"
+            style={{marginTop: 16, width: "100%"}}
+          />
+          <TextField onChange={setName} style={{display:"block"}} hintStyle={{bottom:16, paddingLeft:8}} underlineStyle={{display: "none"}} inputStyle={inputStyle} hintText={"GDG name"}></TextField>
+        </div>
       </MobileView>
       <canvas id="imgCanvas"></canvas>
     </div>

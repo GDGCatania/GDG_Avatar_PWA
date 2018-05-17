@@ -43,8 +43,12 @@ class CanvasPanel extends React.Component {
     var setEditorRef = (editor) => {
       this.editor = editor; 
     }
-    var downloadImg = () =>{
-      return;
+    var downloadImg = ()=>{
+      if(window.navigator.userAgent.indexOf("Edge") > -1){
+        
+        var drawingFileName = "avatar" + Math.round( (new Date()).getTime() / 1000 ) + ".png"; // Produces a unique file name every second.
+        window.navigator.msSaveBlob(this.props.canvasUrl, drawingFileName); // Save the user's drawing to a file.
+      } // saveCanvas
     }
 
     var setCrop = () =>{
@@ -107,7 +111,7 @@ class CanvasPanel extends React.Component {
         return <Canvas></Canvas>
       case 3:
         return(
-        <a href={this.props.canvasUrl} onClick={downloadImg} download="avatar.png" id="download">
+        <a href={this.props.canvasUrl} onClick={downloadImg} download={"avatar"+Math.round( (new Date()).getTime() / 1000 ) +".png"} id="download">
           <FlatButton style={{margin:"0", height:"50vh", width:"100%"}} backgroundColor={"light-gray"} label="Download Avatar!" primary={true} icon={<DownloadIcon />}>
           </FlatButton>
         </a>
