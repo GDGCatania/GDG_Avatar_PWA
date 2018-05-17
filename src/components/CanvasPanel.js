@@ -42,7 +42,7 @@ class CanvasPanel extends React.Component {
       if(window.navigator.userAgent.indexOf("Edge") > -1){
 
         var drawingFileName = "avatar" + Math.round( (new Date()).getTime() / 1000 ) + ".png"; // Produces a unique file name every second.
-        window.navigator.msSaveBlob(this.props.canvasUrl, drawingFileName); // Save the user's drawing to a file.
+        window.navigator.msSaveBlob(this.props.canvas.msToBlob(), drawingFileName); // Save the user's drawing to a file.
       } // saveCanvas
     }
 
@@ -80,7 +80,7 @@ class CanvasPanel extends React.Component {
                 return (
                     <div>
                         <div style={{margin: "0", height: "50vh", width: "100%", backgroundColor:'lightGrey', display:'flex', justifyContent:'center',alignItems:'center',cursor:'pointer', position:'relative'}} >
-                            <UploadIcon/>
+                            <UploadIcon color="#00BCD4"/> <p style={{color:"#00BCD4"}}>UPLOAD IMAGE</p>
                             <input id="inputImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
                         </div>
                         <p>Recommended resolution for your photo is 600x600.</p>
@@ -125,6 +125,7 @@ const mapStateToProps = (state) => {
         wtm: state.data.wtm,
         bw: state.data.bw,
         blackText: state.data.blackText,
+        canvas: state.data.canvas,
         canvasUrl: state.data.canvasUrl
     }
 };

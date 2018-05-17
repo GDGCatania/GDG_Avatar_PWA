@@ -14,4 +14,4 @@ ReactDOM.render(
       <App store={store} />
     </MuiThemeProvider>, document.getElementById('root')
 );
-registerServiceWorker();
+registerServiceWorker(store);

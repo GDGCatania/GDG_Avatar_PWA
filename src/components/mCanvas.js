@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
-import {setBW, setWTM, setTextColor, setCanvasUrl} from '../redux/actions/index';
+import {setBW, setWTM, setTextColor, setCanvasUrl,setCanvas} from '../redux/actions/index';
 import { TextField, Checkbox } from 'material-ui';
 import '../style/App.css'
 
@@ -53,20 +53,20 @@ class Canvas extends React.Component {
                 canvas.height / cropping.height
             );
             if (bw) {
-                var imageData = ctx.getImageData(0, 0, img.width, img.height);
-                          var data = imageData.data;
+              var imageData = ctx.getImageData(0, 0, img.width, img.height);
+                var data = imageData.data;
 
-                          for (var i = 0; i < data.length; i += 4) {
-                            var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                            // red
-                            data[i] = brightness;
-                            // green
-                            data[i + 1] = brightness;
-                            // blue
-                            data[i + 2] = brightness;
-                          }
-                          // overwrite original image
-                          ctx.putImageData(imageData, 0, 0);
+                for (var i = 0; i < data.length; i += 4) {
+                  var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+                  // red
+                  data[i] = brightness;
+                  // green
+                  data[i + 1] = brightness;
+                  // blue
+                  data[i + 2] = brightness;
+                }
+                // overwrite original image
+                ctx.putImageData(imageData, 0, 0);
             } else {
                 canvas.setAttribute("style", "");
             }
@@ -85,6 +85,7 @@ class Canvas extends React.Component {
             const new_height = frame.height / frame.width * canvas.width;
             ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);
             this.props.dispatch(setCanvasUrl(canvas.toDataURL()));
+            this.props.dispatch(setCanvas(canvas));
         }, false);
         img.src = this.props.imageUrl;
     }

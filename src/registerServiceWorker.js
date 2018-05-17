@@ -1,3 +1,5 @@
+import {notifyRefresh, notifyOffline} from './redux/actions/index';
+var store;
 // In production, we register a service worker to serve assets from local cache.
 
 // This lets the app load faster on subsequent visits in production, and gives
@@ -18,7 +20,8 @@ const isLocalhost = Boolean(
     )
 );
 
-export default function register() {
+export default function register(mStore) {
+  store = mStore;
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
@@ -57,11 +60,13 @@ function registerValidSW(swUrl) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.');
+              store.dispatch(notifyRefresh(true));
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
+              store.dispatch(notifyOffline(true));
             }
           }
         };

@@ -22,8 +22,20 @@ export const setCropping = (value) => ({
       type: 'UPDATING_CROPPING',
       payload: value
 });
+export const setCanvas = (value) => ({
+      type: 'UPDATING_CANVAS',
+      payload: value
+});
 export const setCanvasUrl = (value) => ({
       type: 'UPDATING_CANVAS_URL',
+      payload: value
+});
+export const notifyOffline = (value) => ({
+      type: 'NOTIFY_OFFLINE',
+      payload: value
+});
+export const notifyRefresh = (value) => ({
+      type: 'NOTIFY_REFRESH',
       payload: value
 });
 

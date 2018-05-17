@@ -5,7 +5,10 @@ const INITIAL_STATE = {
   bw: false,
   blackText: true,
   cropping:{},
-  canvasUrl:null
+  canvasUrl:null,
+  canvas:null,
+  offline:false,
+  refresh:false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,6 +27,12 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({},state,{cropping:action.payload});
     case 'UPDATING_CANVAS_URL':
       return Object.assign({},state,{canvasUrl:action.payload});
+    case 'UPDATING_CANVAS':
+      return Object.assign({},state,{canvas:action.payload});
+    case 'NOTIFY_OFFLINE':
+      return Object.assign({},state,{offline:action.payload});
+    case 'NOTIFY_REFRESH':
+      return Object.assign({},state,{refresh:action.payload});
     default:
       return state;
   }

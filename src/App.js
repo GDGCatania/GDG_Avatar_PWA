@@ -6,9 +6,9 @@ import FontIcon from 'material-ui/FontIcon';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
-import { setImage } from '../src/redux/actions/index';
+import { setImage, notifyOffline, notifyRefresh } from '../src/redux/actions/index';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
-import {  FlatButton }from '../node_modules/material-ui';
+import {  FlatButton, Snackbar }from '../node_modules/material-ui';
 import './style/App.css';
 
 
@@ -117,6 +117,19 @@ class App extends React.Component {
           </div>
         
         </div>
+        <Snackbar
+          open={this.props.offline}
+          message="Content is cached for offline use."
+          autoHideDuration={2000}
+          onRequestClose={()=>this.props.dispatch(notifyOffline(false))}
+        />
+        <Snackbar
+          open={this.props.refresh} 
+          action={<FlatButton backgroundColor="white" label="Refresh" onClick={()=>window.location.reload(true)} />}
+          message="New content is available; please refresh."
+          autoHideDuration={4000}
+          onRequestClose={()=>this.props.dispatch(notifyRefresh(false))}
+        />
       </div>
       </Provider>
     );
@@ -132,7 +145,9 @@ App.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    image: state.data.image
+    image: state.data.image,
+    refresh: state.data.refresh,
+    offline: state.data.offline
   }
 }
 
