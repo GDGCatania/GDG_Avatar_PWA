@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CanvasPanel from './components/CanvasPanel'
 import LensIcon from 'material-ui/svg-icons/image/lens';
@@ -9,13 +8,8 @@ import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setImage } from '../src/redux/actions/index';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
-import {Step, 
-  Slider,
-  IconButton,
-  FlatButton
-}from '../node_modules/material-ui';
+import {  FlatButton }from '../node_modules/material-ui';
 import './style/App.css';
-import { __esModule } from 'recompose/pure';
 
 
 class App extends React.Component {
@@ -54,17 +48,14 @@ class App extends React.Component {
   render() {
     const { stepIndex} = this.state;
     const contentStyle = {margin: '0 16px 64px 16px'};
-      
-    var downloadImg = () =>{
-      console.log("download", this.state.canvasUrl);
-    }
-    const bottomBarDesktop = 
+
+    const bottomBarDesktop =
       <BottomNavigation style={{position: "fixed", width: "100vw",justifyContent:"space-between", left:0, bottom: 0, zIndex:10}} selectedIndex={(isBrowser)?stepIndex+1:null}>
         <FlatButton
           label="Back"
           disabled={stepIndex === 0}
           onClick={this.handlePrev}
-          style={{flex:"1 0 0", margin: "auto"}}  
+          style={{flex:"1 0 0", margin: "auto"}}
           />
         <BottomNavigationItem
           icon={<LensIcon></LensIcon>}
@@ -97,7 +88,7 @@ class App extends React.Component {
         label="Back"
         disabled={stepIndex === 0}
         onClick={this.handlePrev}
-        style={{flex:"1 0 0", margin: "auto"}}  
+        style={{flex:"1 0 0", margin: "auto"}}
         />
       <FlatButton
         label={stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
@@ -107,7 +98,7 @@ class App extends React.Component {
       />
     </BottomNavigation>
 
-    return (     
+    return (
       <Provider store={this.props.store}>
       <div className="App" style={{textAlign:"center",}}>
         <div className="fork">
@@ -116,13 +107,13 @@ class App extends React.Component {
         
         {(isBrowser)? bottomBarDesktop : bottomBarMobile}
 
-  
+
         <img style={{height:"15em", margin:"-50px"}} alt="GDG logo" src="./img/logo.svg"/>
 
         <div style={contentStyle}>
       
           <div style={{textAlign: "center"}}>
-            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}></CanvasPanel>
+            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}/>
           </div>
         
         </div>
