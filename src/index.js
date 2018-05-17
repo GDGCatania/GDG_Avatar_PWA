@@ -7,7 +7,7 @@ import configureStore from '../src/redux/store/configureStore';
 import './style/index.css';
 import './style/App.css';
 
-const store = configureStore()
+const store = configureStore();
 
 ReactDOM.render(
     <MuiThemeProvider>
