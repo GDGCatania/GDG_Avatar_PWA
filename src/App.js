@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CanvasPanel from './components/CanvasPanel'
-import UploadIcon from 'material-ui/svg-icons/file/file-upload';
 import FontIcon from 'material-ui/FontIcon';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setImage } from '../src/redux/actions/index';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
-import {Step, 
-  Slider,
-  IconButton,
-  FlatButton
-}from '../node_modules/material-ui';
+import {  FlatButton }from '../node_modules/material-ui';
 import './style/App.css';
-import { __esModule } from 'recompose/pure';
 
 const dotIcon = <FontIcon style={{fontSize: "8px"}} className="material-icons">lens</FontIcon>;
 
@@ -27,17 +20,17 @@ class App extends React.Component {
 
   componentDidUpdate(e){
     console.log(e);
-    if(this.state.stepIndex == 0 && this.props.image==true) this.handleNext();
+    if(this.state.stepIndex === 0 && this.props.image===true) this.handleNext();
   }
   
   handleNext = () => {
     const {stepIndex} = this.state;
-    if(stepIndex == 3) {
+    if(stepIndex === 3) {
       this.setState({stepIndex: 0});
       this.props.dispatch(setImage(false));
       return false;
     }
-    if(stepIndex == 0 && this.props.image==false)return alert("Please upload an image");
+    if(stepIndex === 0 && this.props.image===false)return alert("Please upload an image");
     this.setState({
       stepIndex: stepIndex + 1,
     });
@@ -45,7 +38,7 @@ class App extends React.Component {
 
   handlePrev = () => {
     const {stepIndex} = this.state;
-    if(stepIndex == 1) this.props.dispatch(setImage(false));
+    if(stepIndex === 1) this.props.dispatch(setImage(false));
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
@@ -55,10 +48,6 @@ class App extends React.Component {
   render() {
     const { stepIndex} = this.state;
     const contentStyle = {margin: '0 16px 64px 16px'};
-      
-    var downloadImg = () =>{
-      console.log("download", this.state.canvasUrl);
-    }
 
     return (     
       <Provider store={this.props.store}>
@@ -124,7 +113,7 @@ class App extends React.Component {
         <div style={contentStyle}>
       
           <div style={{textAlign: "center"}}>
-            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}></CanvasPanel>
+            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}/>
           </div>
         
         </div>
