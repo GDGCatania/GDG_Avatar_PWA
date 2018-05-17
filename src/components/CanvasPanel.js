@@ -107,7 +107,7 @@ class CanvasPanel extends React.Component {
                 return <Canvas/>;
             case 3:
                 return (
-                    <a href={this.props.canvasUrl} onClick={downloadImg} download="avatar.png" id="download">
+                    <a href={this.props.canvasUrl} onClick={downloadImg} download={"avatar" + Math.round( (new Date()).getTime() / 1000 ) + ".png"} id="download">
                         <FlatButton style={{margin: "0", height: "50vh", width: "100%"}} backgroundColor={"light-gray"}
                                     label="Download Avatar!" primary={true} icon={<DownloadIcon/>}/>
                     </a>
