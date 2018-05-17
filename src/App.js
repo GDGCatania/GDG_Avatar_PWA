@@ -120,11 +120,13 @@ class App extends React.Component {
         <Snackbar
           open={this.props.offline}
           message="Content is cached for offline use."
+          style={(isBrowser)?{paddin:8}:{}}
           autoHideDuration={2000}
           onRequestClose={()=>this.props.dispatch(notifyOffline(false))}
         />
         <Snackbar
           open={this.props.refresh} 
+          style={(isBrowser)?{paddin:8}:{}}
           action={<FlatButton backgroundColor="white" label="Refresh" onClick={()=>window.location.reload(true)} />}
           message="New content is available; please refresh."
           autoHideDuration={4000}
