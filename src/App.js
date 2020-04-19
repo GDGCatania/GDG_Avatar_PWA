@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CanvasPanel from './components/CanvasPanel'
 import LensIcon from 'material-ui/svg-icons/image/lens';
-import FontIcon from 'material-ui/FontIcon';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import { connect } from 'react-redux';
 import { Provider } from 'react-redux';
 import { setImage, notifyOffline, notifyRefresh } from '../src/redux/actions/index';
 import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
-import {  FlatButton, Snackbar }from '../node_modules/material-ui';
+import {  FlatButton, Snackbar }from 'material-ui';
 import './style/App.css';
 
 
@@ -100,39 +99,39 @@ class App extends React.Component {
 
     return (
       <Provider store={this.props.store}>
-      <div className="App" style={{textAlign:"center",}}>
-        <div className="fork">
-          <a href="https://github.com/GDGCatania/GDG_Avatar_PWA/tree/React"><img src="./img/GitHub.png" alt="fork on GitHub" height={(isMobile)? 25 : 50} width={(isMobile)? 25 : 50}/></a>
-        </div>
-        
-        {(isBrowser)? bottomBarDesktop : bottomBarMobile}
-
-
-        <img style={{height:"15em", margin:"-50px"}} alt="GDG logo" src="./img/logo.svg"/>
-
-        <div style={contentStyle}>
-      
-          <div style={{textAlign: "center"}}>
-            <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}/>
+        <div className="App" style={{textAlign:"center",}}>
+          <div className="fork">
+            <a href="https://github.com/GDGCatania/GDG_Avatar_PWA"><img src="./img/GitHub.png" alt="fork on GitHub" height={(isMobile)? 25 : 50} width={(isMobile)? 25 : 50}/></a>
           </div>
-        
+
+          {(isBrowser)? bottomBarDesktop : bottomBarMobile}
+
+
+          <img style={{height:"auto", width:"30%", margin:32}} alt="GDG logo" src="./img/logo.svg"/>
+
+          <div style={contentStyle}>
+
+            <div style={{textAlign: "center"}}>
+              <CanvasPanel scale={this.state.slider} handleNext={this.handleNext} handlePrev={this.handlePrev} stepIndex={stepIndex} image={this.props.image}/>
+            </div>
+
+          </div>
+          <Snackbar
+            open={this.props.offline}
+            message="Content is cached for offline use."
+            style={(isBrowser)?{paddin:8}:{}}
+            autoHideDuration={2000}
+            onRequestClose={()=>this.props.dispatch(notifyOffline(false))}
+          />
+          <Snackbar
+            open={this.props.refresh}
+            style={(isBrowser)?{paddin:8}:{}}
+            action={<FlatButton backgroundColor="white" label="Refresh" onClick={()=>window.location.reload(true)} />}
+            message="New content is available; please refresh."
+            autoHideDuration={4000}
+            onRequestClose={()=>this.props.dispatch(notifyRefresh(false))}
+          />
         </div>
-        <Snackbar
-          open={this.props.offline}
-          message="Content is cached for offline use."
-          style={(isBrowser)?{paddin:8}:{}}
-          autoHideDuration={2000}
-          onRequestClose={()=>this.props.dispatch(notifyOffline(false))}
-        />
-        <Snackbar
-          open={this.props.refresh} 
-          style={(isBrowser)?{paddin:8}:{}}
-          action={<FlatButton backgroundColor="white" label="Refresh" onClick={()=>window.location.reload(true)} />}
-          message="New content is available; please refresh."
-          autoHideDuration={4000}
-          onRequestClose={()=>this.props.dispatch(notifyRefresh(false))}
-        />
-      </div>
       </Provider>
     );
   }
