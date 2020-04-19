@@ -1,21 +1,24 @@
 {
-  "extends": ["eslint:recommended", "google"],
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
-  "env": {
-    "browser": true
-  },
-  "plugins": [
-    "html"
-  ],
-  "rules": {
-    "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
-    "no-var": "off",
-    "require-jsdoc": "off"
-  },
-  "globals": {
-    "Polymer": true
-  }
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "no-extra-semi":"error"
+    }
 }

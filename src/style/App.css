@@ -1,0 +1,92 @@
+
+.App{
+  width: 80vw;
+  margin: auto;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fork{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin:8px;
+  line-height: 0.5;
+  font-size: 0.7em;
+}
+
+.canvas-panel{
+  margin: auto;
+  text-align: center;
+}
+
+
+#imgCanvas{
+  height: 600px;
+  width: 600px;
+  background-color: red;
+  position: relative;
+  margin-top: 25px;
+}
+
+#imgCrop{
+  background-color: red;
+  position: relative;
+  margin-top: 25px;
+  width: 100%;
+}
+
+#menuToggle{
+  height: 100px;
+  width: 100px;
+  padding: 0;
+  margin: 0;
+}
+#inputImage{
+  position: absolute;
+  z-index: 200;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.stylePanel.desktop{
+  display: flex;
+  justify-content: center;
+}
+.stylePanel.mobile{
+  display: inline;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .canvas-panel{
+    width: 100%;
+  }
+}
