@@ -9,6 +9,9 @@
 # production
 /build
 
+#TypeScript
+/TypescriptBuild
+
 # misc
 .vscode
 .DS_Store
