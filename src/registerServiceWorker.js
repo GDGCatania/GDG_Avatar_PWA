@@ -1,4 +1,4 @@
-import {notifyRefresh, notifyOffline} from './redux/actions/index';
+import {notifyRefresh, notifyOffline} from './redux/modules/data';
 var store;
 // In production, we register a service worker to serve assets from local cache.
 
