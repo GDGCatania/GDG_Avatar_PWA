@@ -1,194 +1,190 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {isBrowser} from "react-device-detect";
 import {
-    setBW,
-    setWTM,
-    setTextColor,
     setCanvasUrl,
-    setCanvas
 } from '../redux/modules/data';
-import {TextField, Checkbox} from '@material-ui/core';
+import {TextField, FormControlLabel, Switch} from '@material-ui/core';
 import {RootState} from "../redux/configureStore";
 import '../style/App.css'
 
 
-type ComponentProps = {
-
-}
-
 function mapStateToProps(state: RootState) {
     return {
-        image: state.data.image,
         imageUrl: state.data.imageUrl,
-        wtm: state.data.wtm,
-        bw: state.data.bw,
-        blackText: state.data.blackText,
-        cropping: state.data.cropping
+        cropping: state.data.cropping,
+        canvasUrl: state.data.canvasUrl,
     }
 }
 
 const mapDispatchToProps = {
-    setBW,
-    setWTM,
-    setTextColor,
-    setCanvasUrl,
-    setCanvas
+    setCanvasUrl
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & ComponentProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 type State = {
     timeout: number | undefined;
     finished: boolean;
-    name: string;
+    gdgName: string;
     logoWtm: HTMLImageElement;
     frame: HTMLImageElement;
+    image: HTMLImageElement;
+    wtm: boolean,
+    bw: boolean,
+    blackText: boolean
 }
 
 class Canvas extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
+        const _logoWtm = new Image();
+        _logoWtm.src = './img/logowtm.svg';
+        _logoWtm.addEventListener('load', () => this.drawCanvas());
+        const _frame = new Image();
+        _frame.src = "./img/frame_nuovo.svg";
+        _frame.addEventListener('load', () => this.drawCanvas());
+        const _image = new Image();
+        _image.src = this.props.imageUrl;
+        _image.addEventListener('load', () => this.drawCanvas());
+
         this.state = {
             timeout: undefined,
-            name: "",
+            gdgName: "Catania",
             finished: false,
-            logoWtm: new HTMLImageElement(),
-            frame: new HTMLImageElement()
+            logoWtm: _logoWtm,
+            frame: _frame,
+            image: _image,
+            wtm: true,
+            bw: false,
+            blackText: true
         };
-    }
-
-    componentWillMount() {
-        const logoWtm = new Image();
-        logoWtm.crossOrigin = 'anonymous';
-        logoWtm.src = './img/logow.svg';
-        this.setState({logoWtm: logoWtm});
-
-        const frame = new Image();
-        frame.crossOrigin = 'anonymous';
-        frame.src = "./img/frame.svg";
-        this.setState({frame: frame});
-    }
-
-    componentDidMount() {
-        this.drawCanvas();
-    }
-
-    componentDidUpdate() {
-        this.drawCanvas();
     }
 
     drawCanvas() {
-        const canvas = document.getElementById("imgCanvas") as HTMLCanvasElement;
-        const ctx = canvas.getContext("2d");
+        let canvas = document.getElementById("imageCanvas") as HTMLCanvasElement;
+        if(!canvas) return;
+        let ctx = canvas.getContext("2d");
         if (ctx == null) return;
-        const name = this.state.name;
-        const blackText = this.props.blackText;
-        const bw = this.props.bw;
-        const wtm = this.props.wtm;
-        const frame = this.state.frame;
-        const cropping = this.props.cropping;
-        const logoWtm = this.state.logoWtm;
-        const img = new Image();
-        img.addEventListener('load', () => {
-            canvas.height = canvas.width;
-            ctx.drawImage(
-                img,
-                -cropping.x * (canvas.width / cropping.width),
-                -cropping.y * (canvas.height / cropping.height),
-                canvas.width / cropping.width,
-                canvas.height / cropping.height
-            );
-            if (bw) {
-                let imageData = ctx.getImageData(0, 0, img.width, img.height);
-                let data = imageData.data;
+        let cropping = this.props.cropping;
 
-                for (let i = 0; i < data.length; i += 4) {
-                    let brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
-                    // red
-                    data[i] = brightness;
-                    // green
-                    data[i + 1] = brightness;
-                    // blue
-                    data[i + 2] = brightness;
-                }
-                // overwrite original image
-                ctx.putImageData(imageData, 0, 0);
-            } else {
-                canvas.setAttribute("style", "");
-            }
+        let image = this.state.image;
 
-            if (blackText) ctx.fillStyle = 'black';
-            else ctx.fillStyle = 'white';
-            ctx.font = "500 25px product sans";
-            const textWidth = ctx.measureText(name).width;
-            ctx.fillText(name, canvas.height - textWidth - 10, 30);
+        let imageStartCropX = image.width / 100 * (cropping.x ?? 0);
+        let imageStartCropY = image.height / 100 * (cropping.y ?? 0);
 
-            if (wtm) {
-                const widthWMT = 400;
-                const new_height2 = logoWtm.height / logoWtm.width * widthWMT;
-                ctx.drawImage(logoWtm, 10, 10, widthWMT, new_height2);
-            }
-            const new_height = frame.height / frame.width * canvas.width;
-            ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);
-            this.props.setCanvasUrl(canvas.toDataURL());
-            this.props.setCanvas(canvas);
-        }, false);
-        img.src = this.props.imageUrl;
+        let imageEndAnchorX = image.width / 100 * (cropping.width ?? 0);
+        let imageEndAnchorY = image.height / 100 * (cropping.height ?? 0);
+
+        ctx.drawImage(image,
+            imageStartCropX, imageStartCropY, imageEndAnchorX, imageEndAnchorY,
+            0,0, canvas.height, canvas.width
+        );
+
+        this.applyEffects(ctx, canvas);
+        this.applyText(ctx, canvas);
+        this.applyLogoFrame(ctx, canvas);
+
+        this.props.setCanvasUrl(canvas.toDataURL());
     }
+
+    applyEffects(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+        if (this.state.bw)
+            this.applyBlackAndWhite(ctx, canvas);
+    }
+
+    applyText(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+        if (this.state.blackText) ctx.fillStyle = 'black';
+        else ctx.fillStyle = 'white';
+        let textPadding = 16;
+        let fontSize = 100;
+        ctx.font = "500 " + fontSize + "px " + "product sans";
+        let gdgName = this.state.gdgName;
+        let textWidth = ctx.measureText(gdgName).width;
+        ctx.fillText(gdgName, canvas.height - textWidth - textPadding, fontSize + textPadding);
+    }
+
+    applyLogoFrame(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+        let frame = this.state.frame;
+        let new_height = frame.height / frame.width * canvas.width;
+        ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);
+
+        if (this.state.wtm) {
+            let WTMLogoSize = canvas.width / 4;
+            let wtmPadding = 32;
+            ctx.drawImage(this.state.logoWtm, wtmPadding, wtmPadding, WTMLogoSize, WTMLogoSize);
+        }
+    }
+
+    applyBlackAndWhite(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement){
+        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+            let brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+            data[i] = brightness; // red
+            data[i + 1] = brightness; // green
+            data[i + 2] = brightness; // blue
+        }
+        ctx.putImageData(imageData, 0, 0);
+    }
+
 
     render() {
         const WtmToggled = (e: any, toggle: boolean) => {
-            this.props.setWTM(toggle);
-            this.drawCanvas();
+            this.setState({wtm: toggle}, ()=>this.drawCanvas());
         };
         const BWToggled = (e: any, toggle: boolean) => {
-            this.props.setBW(toggle);
-            this.drawCanvas();
+            this.setState({bw: toggle}, ()=>this.drawCanvas());
         };
         const BlackTextToggled = (e: any, toggle: boolean) => {
-            this.props.setTextColor(toggle);
-            this.drawCanvas();
+            this.setState({blackText: toggle}, ()=>this.drawCanvas());
         };
         const setName = (event: any) => {
             let newValue = event.target.value;
             window.clearTimeout(this.state.timeout);
-            this.setState({name: newValue});
-            this.setState({timeout: window.setTimeout(() => this.drawCanvas(), 500)});
-        };
-        const inputStyle = {
-            height: "36px",
-            width: "100%",
-            borderColor: "lightgray",
-            borderStyle: "solid",
-            borderRadius: "5px",
-            borderWidth: "1px",
-            display: "block"
+            this.setState({
+                gdgName: newValue,
+                timeout: window.setTimeout(() => this.drawCanvas(), 500)
+            });
         };
         return (
-            <div>
-                <div className={"stylePanel " + (isBrowser)?"desktop":"mobile"}>
-                    <Checkbox
-                        value="WTM"
-                        checked={this.props.wtm}
-                        onChange={WtmToggled}
-                        style={{marginTop: 16, width: "15%"}}
+            <div className={"imageStylingPanel"}>
+                <canvas width={1200} height={1200} id="imageCanvas"/>
+                <img alt="avatar preview" src={this.props.canvasUrl} id="imagePreview"/>
+
+                <div className={"stylePanel"}>
+                    <TextField onChange={setName} label={"GDG chapter"} color={"primary"} variant="outlined" margin="dense" value={this.state.gdgName}/>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.wtm}
+                                onChange={WtmToggled}
+                                color={"primary"}
+                            />
+                        }
+                        label="WTM logo"
                     />
-                    <Checkbox
-                        value="Black & White"
-                        checked={this.props.bw}
-                        onChange={BWToggled}
-                        style={{marginTop: 16, width: "15%"}}
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.bw}
+                                onChange={BWToggled}
+                                color={"primary"}
+                            />
+                        }
+                        label="Black & white"
                     />
-                    <Checkbox
-                        value="Black Text"
-                        checked={this.props.blackText}
-                        onChange={BlackTextToggled}
-                        style={{marginTop: 16, width: "15%"}}
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.blackText}
+                                onChange={BlackTextToggled}
+                                color={"primary"}
+                            />
+                        }
+                        label="Black chapter text"
                     />
-                    <TextField onChange={setName}
-                               style={inputStyle} placeholder={"GDG name"}/>
                 </div>
-                <canvas id="imgCanvas"/>
             </div>
         );
     }

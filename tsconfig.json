@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
+    "module": "esnext",
     "target": "es6",
     "outDir": "TypescriptBuild",
     "sourceMap": true,
@@ -13,11 +13,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "noEmit": true
   },
-  "exclude": [
-    "node_modules",
-    "build"
-  ],
-  "includes": ["src"]
+  "include": [
+    "src/**/*"
+  ]
 }

@@ -1,92 +1,121 @@
-
-.App{
-  width: 80vw;
-  margin: auto;
-}
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .fork{
-  position: absolute;
-  top:0;
-  right: 0;
-  margin:8px;
-  line-height: 0.5;
-  font-size: 0.7em;
+    position: absolute;
+    top:0;
+    right: 0;
+    margin:8px;
+    line-height: 0.5;
+    font-size: 0.7em;
+}
+
+#masterButton{
+    background-color: lightGrey;
+    width: 80%;
+    height: 50vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .canvas-panel{
-  margin: auto;
-  text-align: center;
+    margin: auto;
+    text-align: center;
 }
 
-
-#imgCanvas{
-  height: 600px;
-  width: 600px;
-  background-color: red;
-  position: relative;
-  margin-top: 25px;
+.imageStylingPanel{
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    vertical-align: middle;
 }
 
-#imgCrop{
-  background-color: red;
-  position: relative;
-  margin-top: 25px;
-  width: 100%;
+#imageCanvas{
+    display: none;
+    background-color: white;
 }
+
+.stylePanel{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 32px;
+}
+
+#imagePreview{
+    max-width: 60%;
+    max-height: 60vh;
+    height: auto;
+    position: relative;
+}
+
+#cropPreview{
+    margin: auto;
+    width: auto;
+    height: auto;
+    max-width: 30%;
+    max-height: 30vh;
+    position: relative;
+}
+
 
 #menuToggle{
-  height: 100px;
-  width: 100px;
-  padding: 0;
-  margin: 0;
+    height: 100px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
 }
 #inputImage{
-  position: absolute;
-  z-index: 200;
-  top: 0;
-  left: 0; 
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
 }
 
-.stylePanel.desktop{
-  display: flex;
-  justify-content: center;
+.Cropper {
+    margin: 64px;
 }
-.stylePanel.mobile{
-  display: inline;
-}
-
 
 
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  .canvas-panel{
-    width: 100%;
-  }
+    /* For mobile phones: */
+    .canvas-panel{
+        width: 100%;
+    }
+
+    .imageStylingPanel{
+        margin: auto;
+        width: 80%;
+    }
+
+    .stylePanel {
+        border-radius: 0 0 12px 12px;
+        width: 100%;
+    }
+    #imagePreview{
+        width: 100%;
+        max-height: initial;
+        max-width: initial;
+    }
+
+    .Cropper {
+        margin: 0 5%;
+    }
+
+    #cropPreview{
+        max-width: 80%;
+        max-height: 80vh;
+    }
+
 }

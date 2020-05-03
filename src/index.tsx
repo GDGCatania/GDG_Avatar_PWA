@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import {register} from './serviceWorker';
 import ConfigureStore from './redux/configureStore';
 import './style/index.css';
 import './style/App.css';
@@ -15,4 +15,4 @@ ReactDOM.render(
       <App store={store} />
     </ThemeProvider>, document.getElementById('root')
 );
-registerServiceWorker(store);
+register(store)

@@ -2,27 +2,27 @@ import * as React from "react";
 import {RootState} from './redux/configureStore';
 import {connect} from 'react-redux';
 import CanvasPanel from './components/CanvasPanel'
-import LensIcon from '@material-ui/icons/Lens';
-import {Button, Snackbar, BottomNavigation, BottomNavigationAction} from '@material-ui/core';
+import {BottomBarDesktop, BottomBarMobile} from './components/bottomBarDesktop'
+import {Snackbar, Button} from '@material-ui/core';
 import {Provider} from 'react-redux';
-import {setImage, notifyOffline, notifyRefresh} from './redux/modules/data';
+import {notifyOffline, notifyRefresh, setImageUrl} from './redux/modules/data';
 import {isBrowser, isMobile} from "react-device-detect";
 import './style/App.css';
 
 
 type ComponentProps = {
-    store: any
+    store: any;
 }
 
 function mapStateToProps(state: RootState) {
     return {
-        image: state.data.image,
+        image: state.data.imageUrl,
         refresh: state.data.refresh,
         offline: state.data.offline
     }
 }
 
-const mapDispatchToProps = {setImage, notifyOffline, notifyRefresh};
+const mapDispatchToProps = {setImageUrl, notifyOffline, notifyRefresh};
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & ComponentProps;
 type State = {
@@ -38,25 +38,25 @@ class App extends React.Component<Props, State> {
     }
 
     componentDidUpdate() {
-        if (this.state.stepIndex == 0 && this.props.image == true) this.handleNext();
+        if (this.state.stepIndex == 0 && this.props.image) this.handleNext();
     }
 
-    handleNext = () => {
+    handleNext(){
         const {stepIndex} = this.state;
-        if (stepIndex == 3) {
+        if (stepIndex === 3) {
             this.setState({stepIndex: 0});
-            this.props.setImage(false);
+            this.props.setImageUrl("");
             return false;
         }
-        if (stepIndex == 0 && this.props.image == false) return alert("Please upload an image");
+        if (stepIndex === 0 && !this.props.image) return alert("Please upload an image");
         this.setState({
             stepIndex: stepIndex + 1,
         });
     };
 
-    handlePrev = () => {
+    handlePrev(){
         const {stepIndex} = this.state;
-        if (stepIndex == 1) this.props.setImage(false);
+        if (stepIndex === 1) this.props.setImageUrl("");
         if (stepIndex > 0) {
             this.setState({stepIndex: stepIndex - 1});
         }
@@ -67,75 +67,11 @@ class App extends React.Component<Props, State> {
         const {stepIndex} = this.state;
         const contentStyle = {margin: '0 16px 64px 16px'};
 
-        const bottomBarDesktop =
-            <BottomNavigation style={{
-                position: "fixed",
-                width: "100vw",
-                justifyContent: "space-between",
-                left: 0,
-                bottom: 0,
-                zIndex: 10
-            }} value={(isBrowser) ? stepIndex + 1 : undefined}>
-                <Button
-                    disabled={stepIndex === 0}
-                    onClick={this.handlePrev}
-                    style={{flex: "1 0 0", margin: "auto"}}>
-                    Back
-                </Button>
-                <BottomNavigationAction
-                    icon={<LensIcon/>}
-                    style={{flex: "0 0 0", margin: "auto"}}
-                />
-                <BottomNavigationAction
-                    icon={<LensIcon/>}
-                    style={{flex: "0 0 0", margin: "auto"}}
-                />
-                <BottomNavigationAction
-                    icon={<LensIcon/>}
-                    style={{flex: "0 0 0", margin: "auto"}}
-                />
-                <BottomNavigationAction
-                    icon={<LensIcon/>}
-                    style={{flex: "0 0 0", margin: "auto"}}
-                />
-                <Button
-                    color="primary"
-                    style={{flex: "1 0 0", margin: "auto"}}
-                    onClick={this.handleNext}>
-                    {stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
-                </Button>
-            </BottomNavigation>
-
-        const bottomBarMobile =
-
-            <BottomNavigation style={{
-                position: "fixed",
-                width: "100vw",
-                justifyContent: "space-between",
-                left: 0,
-                bottom: 0,
-                zIndex: 10
-            }} value={(isBrowser) ? stepIndex + 1 : undefined}>
-                <Button
-                    disabled={stepIndex === 0}
-                    onClick={this.handlePrev}
-                    style={{flex: "1 0 0", margin: "auto"}}>
-                    Back
-                </Button>
-                <Button
-                    color="primary"
-                    style={{flex: "1 0 0", margin: "auto"}}
-                    onClick={this.handleNext}
-                >
-                    {stepIndex === 2 ? 'Finish' : (stepIndex === 3) ? 'Restart' : 'Next'}
-                </Button>
-            </BottomNavigation>
-
         return (
             <Provider store={this.props.store}>
-                <div className="App" style={{textAlign: "center",}}>
+                <div className="App" style={{textAlign: "center"}}>
                     <div className="fork">
-                        <a href="https://github.com/GDGCatania/GDG_Avatar_PWA">
+                        <a href="https://github.com/GDGCatania/GDG_Avatar_PWA" target="_blank" >
                             <img src="./img/GitHub.png"
                                 alt="fork on GitHub"
                                 height={(isMobile) ? 25 : 50}
@@ -143,15 +79,14 @@ class App extends React.Component<Props, State> {
                         </a>
                     </div>
 
-                    {(isBrowser) ? bottomBarDesktop : bottomBarMobile}
-
+                    {(isBrowser) ? <BottomBarDesktop stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
 
                     <img style={{height: "auto", width: "30%", margin: 32}} alt="GDG logo" src="./img/logo.svg"/>
 
                     <div style={contentStyle}>
 
                         <div style={{textAlign: "center"}}>
-                            <CanvasPanel scale={this.state.slider} stepIndex={stepIndex}/>
+                            <CanvasPanel stepIndex={stepIndex}/>
                         </div>
 
                     </div>
@@ -165,7 +100,7 @@ class App extends React.Component<Props, State> {
                     <Snackbar
                         open={this.props.refresh}
                         style={(isBrowser) ? {padding: 8} : {}}
-                        action={null/*todo <FlatButton backgroundColor="white" label="Refresh" onClick={()=>window.location.reload(true)} />*/}
+                        action={<Button color="primary" onClick={()=>window.location.reload()}>Refresh</Button>}
                         message="New content is available; please refresh."
                         autoHideDuration={4000}
                         onClose={(event: object, reason: string) => this.props.notifyRefresh(false)}
