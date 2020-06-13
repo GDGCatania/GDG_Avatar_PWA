@@ -58,7 +58,7 @@ class AvatarApp extends React.Component<Props, State> {
         if (stepIndex === 1) this.props.setImageUrl("");
         if (stepIndex > 0) {
             this.setState({stepIndex: stepIndex - 1});
-        }
+        }else window.location.href = "/";
     };
 
 

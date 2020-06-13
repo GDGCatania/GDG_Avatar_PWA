@@ -43,7 +43,6 @@ function getStepIcon(stepCount: number){
 export function BottomBarDesktop(props: DesktopProps){
     return <BottomNavigation style={style} value={props.stepIndex + 1}>
         <Button
-            disabled={props.stepIndex === 0}
             onClick={props.handlePrev}
             style={{flex: "1 0 0", margin: "auto"}}>
             Back
@@ -63,7 +62,6 @@ export function BottomBarDesktop(props: DesktopProps){
 export function BottomBarMobile(props: MobileProps){
     return <BottomNavigation style={style} value={props.stepIndex + 1}>
         <Button
-            disabled={props.stepIndex === 0}
             onClick={props.handlePrev}
             style={{flex: "1 0 0", margin: "auto"}}>
             Back

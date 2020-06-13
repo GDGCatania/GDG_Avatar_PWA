@@ -28,44 +28,9 @@ function mapStateToProps(state: RootState) {
 const mapDispatchToProps = {setImageUrl, notifyOffline, notifyRefresh};
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & ComponentProps;
-type State = {
-    stepIndex: number;
-    slider: number;
-}
 
 
-class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {stepIndex: 0, slider: 0};
-    }
-
-    componentDidUpdate() {
-        if (this.state.stepIndex == 0 && this.props.image) this.handleNext();
-    }
-
-    handleNext(){
-        const {stepIndex} = this.state;
-        if (stepIndex === 3) {
-            this.setState({stepIndex: 0});
-            this.props.setImageUrl("");
-            return false;
-        }
-        if (stepIndex === 0 && !this.props.image) return alert("Please upload an image");
-        this.setState({
-            stepIndex: stepIndex + 1,
-        });
-    };
-
-    handlePrev(){
-        const {stepIndex} = this.state;
-        if (stepIndex === 1) this.props.setImageUrl("");
-        if (stepIndex > 0) {
-            this.setState({stepIndex: stepIndex - 1});
-        }
-    };
-
-
+class App extends React.Component<Props> {
     render() {
         let currentPage;
         switch (window.location.pathname) {
