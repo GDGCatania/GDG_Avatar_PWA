@@ -16,6 +16,7 @@ type ComponentProps = {
 
 function mapStateToProps(state: RootState) {
     return {
+        signForm: state.data.signForm,
         image: state.data.imageUrl,
         refresh: state.data.refresh,
         offline: state.data.offline
@@ -62,7 +63,10 @@ class SignerApp extends React.Component<Props, State> {
     };
 
     validateForm(){
-        //todo implement
+        let user = this.props.signForm;
+
+        if(!user.firstName || !user.lastName || !user.role) return false;
+        if(user.firstName.trim().length < 0 || user.lastName.trim().length < 0 || user.role.trim().length < 0) return false;
         return true;
     }
 

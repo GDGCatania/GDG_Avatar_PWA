@@ -9,7 +9,7 @@ export type CroppedRect = {
 
 //todo check image type and required fields
 export type SignForm = {
-    image?: any;
+    image?: string;
     firstName?: string;
     lastName?: string;
     role?: string;

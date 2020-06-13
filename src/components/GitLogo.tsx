@@ -5,7 +5,7 @@ class GitLogo extends Component {
     render() {
         return (
             <div className="fork">
-                <a href="https://github.com/GDGCatania/GDG_Avatar_PWA" target="_blank" >
+                <a href="https://github.com/GDGCatania/GDG_Avatar_PWA" target="_blank" rel="noopener noreferrer">
                     <img src="./img/GitHub.png"
                          alt="fork on GitHub"
                          height={(isMobile) ? 25 : 50}
