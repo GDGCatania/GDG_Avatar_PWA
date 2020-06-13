@@ -1,12 +1,13 @@
 import { AnyAction } from "redux";
-import {CroppedRect} from "../../AppTypes";
+import {SignForm} from "../../AppTypes";
 
 export type DataState = {
     imageUrl: string,
     cropping: ReactCrop.Crop,
     canvasUrl: string,
     offline: boolean,
-    refresh: boolean
+    refresh: boolean,
+    signForm: SignForm
 }
 
 export const INITIAL_STATE: DataState = {
@@ -14,9 +15,11 @@ export const INITIAL_STATE: DataState = {
     cropping: {unit:'%', aspect: 1, width: 100, height: 100, x: 0, y:0},
     canvasUrl:"",
     offline:false,
-    refresh:false
+    refresh:false,
+    signForm: {}
 }
 
+/* Avatar */
 export const setImageUrl = (value: string | undefined): AnyAction => ({
     type: 'UPDATING_IMAGE_URL',
     payload: value
@@ -38,16 +41,24 @@ export const notifyRefresh = (value: boolean): AnyAction => ({
     payload: value
 });
 
+/* Signer */
+export const setSignForm = (value: SignForm): AnyAction => ({
+    type: 'UPDATING_SIGN_FORM',
+    payload: value
+});
+
 type dataActions = ReturnType<
     typeof setImageUrl |
     typeof setCropping |
     typeof setCanvasUrl |
     typeof notifyOffline |
-    typeof notifyRefresh
+    typeof notifyRefresh |
+    typeof setSignForm
     >;
 
 export default function dataReducer(state:DataState = INITIAL_STATE, action: dataActions): DataState {
     switch (action.type) {
+        /* Avatar */
         case 'UPDATING_IMAGE_URL':
             return Object.assign({},state,{imageUrl:action.payload});
         case 'UPDATING_WTM':
@@ -64,6 +75,10 @@ export default function dataReducer(state:DataState = INITIAL_STATE, action: dat
             return Object.assign({},state,{offline:action.payload});
         case 'NOTIFY_REFRESH':
             return Object.assign({},state,{refresh:action.payload});
+
+        /* Signer */
+        case 'UPDATING_SIGN_FORM':
+            return Object.assign({},state,{signForm:action.payload});
         default:
             return state;
     }

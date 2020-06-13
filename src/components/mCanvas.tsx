@@ -97,7 +97,7 @@ class Canvas extends React.Component<Props, State> {
         else ctx.fillStyle = 'white';
         let textPadding = 16;
         let fontSize = 100;
-        ctx.font = "500 " + fontSize + "px " + "product sans";
+        ctx.font = "500 " + fontSize + "px Open Sans";
         let gdgName = this.state.gdgName;
         let textWidth = ctx.measureText(gdgName).width;
         ctx.fillText(gdgName, canvas.height - textWidth - textPadding, fontSize + textPadding);

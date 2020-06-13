@@ -7,3 +7,17 @@ export type CroppedRect = {
     unit?: 'px' | '%';
 }
 
+//todo check image type and required fields
+export type SignForm = {
+    image?: any;
+    firstName?: string;
+    lastName?: string;
+    role?: string;
+    phoneNumber?: string;
+    website?: string;
+    telegram?: string;
+    twitter?: string;
+    facebook?: string;
+    youtube?: string;
+}
+

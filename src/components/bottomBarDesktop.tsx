@@ -2,7 +2,14 @@ import React from "react"
 import { BottomNavigation, Button, BottomNavigationAction } from "@material-ui/core"
 import LensIcon from '@material-ui/icons/Lens';
 
-type Props = {
+type DesktopProps = {
+    stepCount: number,
+    stepIndex: number,
+    handlePrev: any,
+    handleNext: any
+}
+
+type MobileProps = {
     stepIndex: number,
     handlePrev: any,
     handleNext: any
@@ -17,8 +24,23 @@ const style = {
     zIndex: 10
 } as any;
 
+function getStepIcon(stepCount: number){
+    let steps = [];
 
-export function BottomBarDesktop(props: Props){
+    for (let i = 0; i < stepCount; i++) {
+        steps.push(
+            <BottomNavigationAction
+                key={i}
+                icon={<LensIcon/>}
+                style={{flex: "0 0 0", margin: "auto"}}
+            />
+        )
+    }
+
+    return steps;
+}
+
+export function BottomBarDesktop(props: DesktopProps){
     return <BottomNavigation style={style} value={props.stepIndex + 1}>
         <Button
             disabled={props.stepIndex === 0}
@@ -26,22 +48,9 @@ export function BottomBarDesktop(props: Props){
             style={{flex: "1 0 0", margin: "auto"}}>
             Back
         </Button>
-        <BottomNavigationAction
-            icon={<LensIcon/>}
-            style={{flex: "0 0 0", margin: "auto"}}
-        />
-        <BottomNavigationAction
-            icon={<LensIcon/>}
-            style={{flex: "0 0 0", margin: "auto"}}
-        />
-        <BottomNavigationAction
-            icon={<LensIcon/>}
-            style={{flex: "0 0 0", margin: "auto"}}
-        />
-        <BottomNavigationAction
-            icon={<LensIcon/>}
-            style={{flex: "0 0 0", margin: "auto"}}
-        />
+
+        {getStepIcon(props.stepCount)}
+
         <Button
             color="primary"
             style={{flex: "1 0 0", margin: "auto"}}
@@ -51,7 +60,7 @@ export function BottomBarDesktop(props: Props){
     </BottomNavigation>
 }
 
-export function BottomBarMobile(props: Props){
+export function BottomBarMobile(props: MobileProps){
     return <BottomNavigation style={style} value={props.stepIndex + 1}>
         <Button
             disabled={props.stepIndex === 0}

@@ -1,13 +1,16 @@
 import * as React from "react";
 import {RootState} from './redux/configureStore';
 import {connect} from 'react-redux';
-import CanvasPanel from './components/CanvasPanel'
-import {BottomBarDesktop, BottomBarMobile} from './components/bottomBarDesktop'
 import {Snackbar, Button} from '@material-ui/core';
 import {Provider} from 'react-redux';
 import {notifyOffline, notifyRefresh, setImageUrl} from './redux/modules/data';
-import {isBrowser, isMobile} from "react-device-detect";
+import {isBrowser} from "react-device-detect";
 import './style/App.css';
+import AvatarApp from "./AvatarApp";
+import Menu from "./Menu";
+import Logo from "./components/Logo";
+import GitLogo from "./components/GitLogo";
+import SignerApp from "./SignerApp";
 
 
 type ComponentProps = {
@@ -64,32 +67,29 @@ class App extends React.Component<Props, State> {
 
 
     render() {
-        const {stepIndex} = this.state;
-        const contentStyle = {margin: '0 16px 64px 16px'};
+        let currentPage;
+        switch (window.location.pathname) {
+            case "/Avatar":
+                currentPage = <AvatarApp store={this.props.store} />;
+                break;
+            case "/Signer":
+                currentPage = <SignerApp store={this.props.store} />;
+                break;
+            default:
+                currentPage = <Menu store={this.props.store} />;
+                break ;
+        }
 
         return (
             <Provider store={this.props.store}>
-                <div className="App" style={{textAlign: "center"}}>
-                    <div className="fork">
-                        <a href="https://github.com/GDGCatania/GDG_Avatar_PWA" target="_blank" >
-                            <img src="./img/GitHub.png"
-                                alt="fork on GitHub"
-                                height={(isMobile) ? 25 : 50}
-                                width={(isMobile) ? 25 : 50}/>
-                        </a>
-                    </div>
+                <div className="App">
+                    <header>
+                        <GitLogo/>
+                        <Logo/>
+                    </header>
 
-                    {(isBrowser) ? <BottomBarDesktop stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
+                    {currentPage}
 
-                    <img style={{height: "auto", width: "30%", margin: 32}} alt="GDG logo" src="./img/logo.svg"/>
-
-                    <div style={contentStyle}>
-
-                        <div style={{textAlign: "center"}}>
-                            <CanvasPanel stepIndex={stepIndex}/>
-                        </div>
-
-                    </div>
                     <Snackbar
                         open={this.props.offline}
                         message="Content is cached for offline use."
