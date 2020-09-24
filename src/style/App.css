@@ -3,6 +3,19 @@
     margin: 0 16px 64px 16px;
 }
 
+.logo { grid-area: logo; }
+.title { grid-area: title; }
+.git { grid-area: git; }
+
+.header{
+    display: grid;
+    grid-template-areas: 'logo title git';
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    margin: 16px 0;
+    width: 100%;
+}
+
 .verticalFlow{
     display: flex;
     flex-direction: column;
@@ -10,7 +23,38 @@
 
 .horizontalFlow{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
+}
+
+.logo{
+    text-align: left;
+    width:13em;
+    margin:1em;
+}
+
+.title {
+    font-size: 1.2em;
+    text-decoration: none;
+    margin:auto;
+}
+
+.loader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    background-color: #2225;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fork{
+    margin: 1em;
+    text-align: right;
 }
 
 .SignForm{
@@ -18,15 +62,6 @@
 }
 .SignForm > *{
     margin: 32px;
-}
-
-.fork{
-    position: absolute;
-    top:0;
-    right: 0;
-    margin:8px;
-    line-height: 0.5;
-    font-size: 0.7em;
 }
 
 .canvas-panel{
@@ -50,18 +85,27 @@
     background-color: white;
 }
 
+.avatarImageContainer{
+    position: relative;
+    max-width: 60%;
+    max-height: 60vh;
+}
+
 .stylePanel{
-    background-color: white;
+    background-color: #eee;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
     border-radius: 0 12px 12px 0;
     padding: 16px 32px;
+    border-left: solid lightgray 2px;
+    border-right: solid #7f7f7f 5px;
+    border-bottom: solid #7f7f7f 3px;
 }
 
 #imagePreview, .imageFit{
-    max-width: 60%;
+    max-width: 100%;
     max-height: 60vh;
     height: auto;
     position: relative;
@@ -69,15 +113,6 @@
 
 .imageFit{
     margin: auto;
-}
-
-#cropPreview{
-    margin: auto;
-    width: auto;
-    height: auto;
-    max-width: 30%;
-    max-height: 30vh;
-    position: relative;
 }
 
 #menuToggle{
@@ -88,10 +123,9 @@
 }
 
 #masterButton{
-    background-color: lightGrey;
-    width: 80%;
-    height: 50vh;
-    margin: auto;
+    height: 30vh;
+    width: 20%;
+    margin: 32px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,15 +143,33 @@
     opacity: 0;
 }
 
-.Cropper {
-    margin: 64px;
+.Cropper{
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    cursor: pointer;
+    height: auto;
+    width: 20%;
+    margin: auto;
 }
 
-#inputSignImage{
+#inputImage{
     display: none;
 }
+
+#download{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    z-index: 100;
+}
+
 .custom-file-upload {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
     cursor: pointer;
     height: 100%;
     width: 100%;
@@ -133,10 +185,45 @@
     border-radius: 4px;
 }
 
+.unselectable{
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    .header{
+        grid-template-areas:
+                ". logo ."
+                ". title ."
+                ". git .";
+    }
+
+    .logo {
+         text-align: center;
+         width: initial;
+         margin: initial;
+    }
+
+    .fork{
+        margin: initial;
+        text-align: center;
+    }
+
     .canvas-panel{
         width: 100%;
+    }
+
+    #masterButton{
+        width: 80%;
+    }
+
+    .avatarImageContainer{
+        max-width: 100%;
+        max-height: initial;
     }
 
     .imageStylingPanel{
@@ -147,20 +234,22 @@
     .stylePanel {
         border-radius: 0 0 12px 12px;
         width: 100%;
+        border-right: solid #7f7f7f 2px;
+        border-left: solid #7f7f7f 2px;
+        border-bottom: solid #7f7f7f 2px;
     }
     #imagePreview{
         width: 100%;
+    }
+
+    #imagePreview, .imageFit{
         max-height: initial;
-        max-width: initial;
     }
+}
 
-    .Cropper {
-        margin: 0 5%;
+@media only screen and (max-width: 1074px) {
+    /* For mobile phones: */
+    .Cropper{
+        width: 80%;
     }
-
-    #cropPreview{
-        max-width: 80%;
-        max-height: 80vh;
-    }
-
 }

@@ -2,7 +2,6 @@ import React from "react";
 import {RootState} from "../redux/configureStore";
 import { connect } from "react-redux";
 import '../style/App.css'
-import '../style/SignStyle.css'
 
 import {SignForm as SignFormType} from "../AppTypes";
 
@@ -18,6 +17,16 @@ type State = {
     form: SignFormType
 }
 
+let linkStyle = {color: "#3c78d8", textDecoration: "none"};
+let signTableStyle = {textAlign: "start", width: "400px", border: "0 solid black"} as React.CSSProperties;
+let tableDataStyle = {lineHeight: 0, height: "3px", width: "20px"};
+let blankTableRowStyle = {border: "0 solid black", height: "10px", background: "transparent"};
+let infoBoxStyle = {background: "#f3f3f3"};
+let tableDataImageStyle = {padding: 0, textAlign: "center", background: "transparent", borderRadius: "6px 0px 0px 6px", WebkitBorderRadius: "6px 0px 0px 6px", MozBorderRadius: "6px 0px 0px 6px" /* Purtroppo su FF opera solo sul bordo e non sul background della cella */} as React.CSSProperties;
+let tableDataInfoStyle = {lineHeight: "16px", fontFamily: "arial, sans-serif", fontSize: "10px", color: "#808080", padding: "8px 8px 8px 0", borderRadius: "0px 6px 6px 0px", WebkitBorderRadius: "0px 6px 6px 0px", MozBorderRadius: "0px 6px 6px 0px"};
+
+
+let linkSeparation = ' | ';
 
 class SignForm extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -27,39 +36,50 @@ class SignForm extends React.Component<Props, State> {
         };
     }
 
+    componentDidMount(){
+        let lastSpan = document.getElementsByClassName("horizontalList")[0].lastChild as HTMLElement;
+        if (lastSpan.innerHTML.endsWith(linkSeparation))
+            lastSpan.innerHTML = lastSpan.innerHTML.substr(0, lastSpan.innerHTML.lastIndexOf(linkSeparation));
+    }
+
+    /*Style needs to be inline for sign to be copied in email text*/
     render() {
         let user = this.props.signForm;
         return (
-            <div className={"SignerResult horizontalFlow"}>
-                <table cellPadding={0} cellSpacing={0} id={"sign"}>
+            <div id={"result"} style={{textAlign:"center", margin:"auto", width:"min-content", backgroundColor:"white"}} className={"SignerResult"}>
+                <table cellPadding={0} cellSpacing={0} style={signTableStyle} id={"sign"}>
+                    <tbody>
+                        <tr className="colLine">
+                            <td style={{...tableDataStyle, background:"#ea4335"}}/>
+                            <td style={{...tableDataStyle, background:"#4285f4"}}/>
+                            <td style={{...tableDataStyle, background:"#34a853"}}/>
+                            <td style={{...tableDataStyle, background:"#fbbc05"}}/>
+                            <td style={{...tableDataStyle, width:"auto"}}/>
+                        </tr>
 
-                    <tbody><tr className="colLine">
-                        <td style={{background:"#ea4335"}}/>
-                        <td style={{background:"#4285f4"}}/>
-                        <td style={{background:"#34a853"}}/>
-                        <td style={{background:"#fbbc05"}}/>
-                        <td style={{width:"auto"}}/>
-                    </tr>
+                        <tr style={blankTableRowStyle}>
+                            <td colSpan={5} style={{lineHeight: 0, height: "10px"}}/>
+                        </tr>
 
-                    <tr className="blank">
-                        <td colSpan={5}/>
-                    </tr>
+                        <tr className="infoBox" style={infoBoxStyle}>
+                            <td className="picture" colSpan={4} valign="middle" style={tableDataImageStyle}>
+                                <img src={user.image} alt={"user"} style={{width: "82%"}}/>
+                            </td>
+                            <td className="info" valign="middle" style={tableDataInfoStyle}>
+                                <span style={{color: "#ea4335"}}>•&nbsp;</span><strong style={{color:"#666666"}}>{user.firstName + " " + user.lastName}</strong><br/>
+                                <span style={{color: "#4285f4"}}>•&nbsp;</span><span>{user.role}</span><br/>
+                                <span style={{color: "#34a853"}}>•&nbsp;</span><a style={linkStyle} href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a><br/>
+                                <span style={{color: "#fbbc05"}}>•&nbsp;</span>
 
-                    <tr className="infoBox">
-                        <td className="picture" colSpan={4} valign="middle">
-                            <img src={user.image} alt={"user"}/>
-                        </td>
-                        <td className="info" valign="middle">
-                            <span><span className={"red"}>•&nbsp;</span><strong style={{color:"#666666"}}>{user.firstName + " " + user.lastName}</strong></span><br/>
-                            <span className={"blue"}>•&nbsp;</span><span>{user.role}</span><br/>
-                            <span className={"green"}>•&nbsp;</span><span><a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a></span><br/>
-                            <span className={"yellow"}>•&nbsp;</span><span><a href={"tel:"+user.phoneNumber}>{user.phoneNumber}</a></span>&nbsp;|
-                            <a href={user.telegram}>Telegram</a>&nbsp;|
-                            <a href={user.twitter}>Twitter</a>&nbsp;|
-                            <a href={user.facebook}>Facebook</a>&nbsp;|
-                            <a href={user.youtube}>Youtube</a>
-                        </td>
-                    </tr>
+                                <span className="horizontalList">
+                                    {user.phoneNumber && <span><a style={linkStyle} href={"tel:"+user.phoneNumber}>{user.phoneNumber}</a>{linkSeparation}</span>}
+                                    {user.telegram && <span><a style={linkStyle} href={user.telegram}>Telegram</a>{linkSeparation}</span>}
+                                    {user.twitter && <span><a style={linkStyle} href={user.twitter}>Twitter</a>{linkSeparation}</span>}
+                                    {user.facebook && <span><a style={linkStyle} href={user.facebook}>Facebook</a>{linkSeparation}</span>}
+                                    {user.youtube && <span><a style={linkStyle} href={user.youtube}>Youtube</a>{linkSeparation}</span>}
+                                </span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

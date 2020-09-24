@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-import { isMobile } from 'react-device-detect';
 
 class GitLogo extends Component {
     render() {
         return (
-            <div className="fork">
+            <div className="fork git">
                 <a href="https://github.com/GDGCatania/GDG_Avatar_PWA" target="_blank" rel="noopener noreferrer">
-                    <img src="./img/GitHub.png"
+                    <img src="./img/git_fork.svg"
                          alt="fork on GitHub"
-                         height={(isMobile) ? 25 : 50}
-                         width={(isMobile) ? 25 : 50}/>
+                         height={35}
+                         width={35}/>
                 </a>
             </div>
         );

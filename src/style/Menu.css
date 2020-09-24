@@ -1,0 +1,48 @@
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    color: #707070;
+}
+
+.Menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60vh;
+    width: 75%;
+    margin: auto auto;
+    flex-wrap: wrap;
+}
+.Menu .chooseToolContent{
+    margin: 16px auto;
+    text-align: center;
+    width: 35%;
+    padding: 0 32px 32px;
+}
+
+.Menu .chooseToolContent:hover{
+    transform: scale(1.03);
+}
+
+.placeholder{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 32px;
+    height: 50%;
+    margin-bottom: 16px;
+}
+
+.imageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70%;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .Menu .chooseToolContent{
+        width: 60%;
+    }
+}

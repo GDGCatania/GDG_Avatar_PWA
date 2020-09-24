@@ -12,7 +12,6 @@ import Logo from "./components/Logo";
 import GitLogo from "./components/GitLogo";
 import SignerApp from "./SignerApp";
 
-
 type ComponentProps = {
     store: any;
 }
@@ -33,11 +32,11 @@ type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & Co
 class App extends React.Component<Props> {
     render() {
         let currentPage;
-        switch (window.location.pathname) {
-            case "/Avatar":
+        switch (window.location.pathname.toLowerCase()) {
+            case "/avatar":
                 currentPage = <AvatarApp store={this.props.store} />;
                 break;
-            case "/Signer":
+            case "/signature":
                 currentPage = <SignerApp store={this.props.store} />;
                 break;
             default:
@@ -48,10 +47,11 @@ class App extends React.Component<Props> {
         return (
             <Provider store={this.props.store}>
                 <div className="App">
-                    <header>
-                        <GitLogo/>
+                    <div className="header unselectable">
                         <Logo/>
-                    </header>
+                        <a className={"title"} href={"/"}><p>Avatar and Signature Generator</p></a>
+                        <GitLogo/>
+                    </div>
 
                     {currentPage}
 
@@ -65,7 +65,7 @@ class App extends React.Component<Props> {
                     <Snackbar
                         open={this.props.refresh}
                         style={(isBrowser) ? {padding: 8} : {}}
-                        action={<Button color="primary" onClick={()=>window.location.reload()}>Refresh</Button>}
+                        action={<Button color="primary" onClick={()=>window.location.reload(false)}>Refresh</Button>}
                         message="New content is available, please refresh."
                         autoHideDuration={4000}
                         onClose={(event: object, reason: string) => this.props.notifyRefresh(false)}

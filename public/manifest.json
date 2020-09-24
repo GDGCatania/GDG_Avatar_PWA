@@ -1,5 +1,5 @@
 {
-  "name": "GDG Avatar Generator",
+  "name": "GDG Avatar and Signature Generator",
   "short_name": "GDG avatar",
   "start_url": "./index.html",
   "display": "standalone",

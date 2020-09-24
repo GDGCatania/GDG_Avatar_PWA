@@ -6,5 +6,10 @@ export const theme = createMuiTheme({
     palette: {
         primary: deepOrange,
         secondary: green
-    }
+    },
+    props: {
+        MuiPaper: {
+            elevation: 2,
+        },
+    },
 });

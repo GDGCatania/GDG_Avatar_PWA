@@ -12,7 +12,7 @@ export type DataState = {
 
 export const INITIAL_STATE: DataState = {
     imageUrl: "",
-    cropping: {unit:'%', aspect: 1, width: 100, height: 100, x: 0, y:0},
+    cropping: {unit:'%', aspect: 1, x: 0, y:0},
     canvasUrl:"",
     offline:false,
     refresh:false,

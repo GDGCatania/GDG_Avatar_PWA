@@ -5,9 +5,9 @@ import {BottomBarDesktop, BottomBarMobile} from './components/bottomBarDesktop'
 import {Provider} from 'react-redux';
 import {notifyOffline, notifyRefresh, setImageUrl} from './redux/modules/data';
 import {isBrowser} from "react-device-detect";
-import './style/App.css';
 import SignerResult from "./components/SignerResult";
 import SignerForm from "./components/SignerForm";
+import './style/App.css';
 
 
 type ComponentProps = {
@@ -44,15 +44,12 @@ class SignerApp extends React.Component<Props, State> {
 
     handleNext(){
         const {stepIndex} = this.state;
-        if (stepIndex === steps - 1) {
-            this.setState({stepIndex: 0});
-            return false;
-        }
-        if (stepIndex === 0 && !this.validateForm()) return alert("Please compile form");
+        if (stepIndex === 0 && !this.validateForm()) return alert("Please compile the form");
+        if (stepIndex === steps-1) return this.copyHtml();
         this.setState({
             stepIndex: stepIndex + 1,
         });
-    };
+    }
 
     handlePrev(){
         const {stepIndex} = this.state;
@@ -60,13 +57,24 @@ class SignerApp extends React.Component<Props, State> {
         if (stepIndex > 0) {
             this.setState({stepIndex: stepIndex - 1});
         }else window.location.href = "/";
-    };
+    }
+
+    copyHtml(){
+        try {
+            let select = document.execCommand("selectAll");
+            let copy = document.execCommand('copy');
+            if(select && copy) alert("Sign copied! Paste into your emails!");
+            else alert("Impossible to automatically copy the sign, press ctrl+A and then ctrl+c (⌘+a and then ⌘+c on Mac) or manually select the sign");
+        } catch (err) {
+            alert("Impossible to automatically copy the sign, press ctrl+A and then ctrl+c (⌘+a and then ⌘+c on Mac) or manually select the sign");
+        }
+    }
 
     validateForm(){
         let user = this.props.signForm;
 
-        if(!user.firstName || !user.lastName || !user.role) return false;
-        if(user.firstName.trim().length < 0 || user.lastName.trim().length < 0 || user.role.trim().length < 0) return false;
+        if(!user.image || !user.firstName || !user.lastName || !user.role || !user.website) return false;
+        if(user.firstName.trim().length < 0 || user.lastName.trim().length < 0 || user.role.trim().length < 0 || user.website.trim().length < 0) return false;
         return true;
     }
 
@@ -74,12 +82,15 @@ class SignerApp extends React.Component<Props, State> {
         const {stepIndex} = this.state;
 
         let currentPage;
+        let title;
         switch (stepIndex) {
 
             case 0:
+                title = <p>Insert data</p>
                 currentPage = <SignerForm/>;
                 break;
             case 1:
+                title = <p className={"unselectable"}>Get the signature!</p>
                 currentPage = <SignerResult/>;
                 break;
             default:
@@ -90,10 +101,10 @@ class SignerApp extends React.Component<Props, State> {
         return (
             <Provider store={this.props.store}>
                 <div className="SignerApp">
-
+                    {title}
                     {currentPage}
 
-                    {(isBrowser) ? <BottomBarDesktop stepCount={steps} stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
+                    {(isBrowser) ? <BottomBarDesktop stepCount={steps} stepIndex={stepIndex} finalButtonText={"Copy to clipboard"} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepCount={steps} stepIndex={stepIndex} finalButtonText={"Copy to clipboard"} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
                 </div>
             </Provider>
         );

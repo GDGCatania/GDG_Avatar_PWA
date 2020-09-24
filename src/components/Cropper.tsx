@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import {RootState} from "../redux/configureStore";
 import {setCropping, setImageUrl} from "../redux/modules/data";
 import { connect } from "react-redux";
+import "react-image-crop/dist/ReactCrop.css";
 import '../style/App.css'
 
 
@@ -37,6 +37,14 @@ class Cropper extends PureComponent<Props, State> {
         this.setState({ crop: percentCrop });
     };
 
+    onImageLoaded = (image: HTMLImageElement) => {
+        if(image.width < image.height)
+            this.setState({ crop: {unit:'%', aspect: 1, x: 0, y:0, width: 100}});
+        else
+            this.setState({ crop: {unit:'%', aspect: 1, x: 0, y:0, height: 100}});
+        return false;
+    };
+
     render() {
 
         return (
@@ -44,8 +52,10 @@ class Cropper extends PureComponent<Props, State> {
                 {this.props.imageUrl && (
                     <ReactCrop
                         src={this.props.imageUrl}
-                        crop={this.state.crop as ReactCrop.Crop}
+                        crop={this.state.crop}
                         onComplete={this.onCropComplete}
+                        onImageLoaded={this.onImageLoaded}
+                        onImageError={()=>alert("Impossible to load the image.")}
                         onChange={this.onCropChange}
                     />
                 )}

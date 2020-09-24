@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="182.327" height="155.049" viewBox="0 0 182.327 155.049">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4285f4;
+      }
+
+      .cls-2 {
+        fill: #00bfa5;
+      }
+
+      .cls-3 {
+        fill: #1ce9b6;
+      }
+
+      .cls-4 {
+        fill: #4fc3f7;
+      }
+    </style>
+  </defs>
+  <g id="layer1" transform="translate(0)">
+    <g id="g79-9-7-41" transform="translate(0)">
+      <g id="g81-5-8-9" transform="translate(34.681 31.643)">
+        <g id="g83-4-8-6">
+          <rect id="rect85-3-2-9" class="cls-1" width="28.225" height="91.701"/>
+          <rect id="rect87-1-9-8" class="cls-2" width="28.415" height="91.701" transform="translate(84.549)"/>
+          <path id="polygon89-2-1-2" class="cls-3" d="M82.69,84.978,40.415,7.2H12.19L54.4,84.978Z" transform="translate(30.275 6.723)"/>
+        </g>
+        <path id="polygon91-3-3-5" class="cls-4" d="M5.48,84.978,47.755,7.2H75.98L33.769,84.978Z" transform="translate(-5.48 6.723)"/>
+      </g>
+      <g id="g93-3-5-5">
+        <path id="path95-4-9-4" class="cls-1" d="M18.1,137.266V18.1H49.047V0H7.152A7.215,7.215,0,0,0,0,7.151V147.139a7.847,7.847,0,0,0,7.151,7.911H48.983V137.266Z" transform="translate(0)"/>
+        <path id="path97-1-8-9" class="cls-2" d="M52.27,137.266V18.1H21.07V0H62.9a7.215,7.215,0,0,1,7.151,7.151V147.139a7.847,7.847,0,0,1-7.151,7.911H21.07V137.266Z" transform="translate(112.273)"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -51,7 +51,7 @@ class AvatarApp extends React.Component<Props, State> {
         this.setState({
             stepIndex: stepIndex + 1,
         });
-    };
+    }
 
     handlePrev(){
         const {stepIndex} = this.state;
@@ -59,7 +59,7 @@ class AvatarApp extends React.Component<Props, State> {
         if (stepIndex > 0) {
             this.setState({stepIndex: stepIndex - 1});
         }else window.location.href = "/";
-    };
+    }
 
 
     render() {
@@ -73,7 +73,7 @@ class AvatarApp extends React.Component<Props, State> {
                         <CanvasPanel stepIndex={stepIndex}/>
                     </div>
 
-                    {(isBrowser) ? <BottomBarDesktop stepCount={steps} stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
+                    {(isBrowser) ? <BottomBarDesktop stepCount={steps} stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)} /> : <BottomBarMobile stepCount={steps} stepIndex={stepIndex} handleNext={this.handleNext.bind(this)} handlePrev={this.handlePrev.bind(this)}/>}
                 </div>
             </Provider>
         );

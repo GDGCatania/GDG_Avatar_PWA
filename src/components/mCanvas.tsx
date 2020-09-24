@@ -4,6 +4,7 @@ import {
     setCanvasUrl,
 } from '../redux/modules/data';
 import {TextField, FormControlLabel, Switch} from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import {RootState} from "../redux/configureStore";
 import '../style/App.css'
 
@@ -25,39 +26,117 @@ type State = {
     timeout: number | undefined;
     finished: boolean;
     gdgName: string;
+    squarePlaceholderUrl: string;
     logoWtm: HTMLImageElement;
     frame: HTMLImageElement;
     image: HTMLImageElement;
     wtm: boolean,
     bw: boolean,
-    blackText: boolean
+    blackText: boolean,
+    loadingCount: number
 }
 
 class Canvas extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const _logoWtm = new Image();
-        _logoWtm.src = './img/logowtm.svg';
-        _logoWtm.addEventListener('load', () => this.drawCanvas());
-        const _frame = new Image();
-        _frame.src = "./img/frame_nuovo.svg";
-        _frame.addEventListener('load', () => this.drawCanvas());
-        const _image = new Image();
-        _image.src = this.props.imageUrl;
-        _image.addEventListener('load', () => this.drawCanvas());
-
         this.state = {
             timeout: undefined,
-            gdgName: "Catania",
+            gdgName: "",
             finished: false,
-            logoWtm: _logoWtm,
-            frame: _frame,
-            image: _image,
+            squarePlaceholderUrl: this.getSquarePlaceholderImage(),
+            logoWtm: new Image(),
+            frame: new Image(),
+            image: new Image(),
             wtm: true,
             bw: false,
-            blackText: true
+            blackText: true,
+            loadingCount : 3
         };
+    }
+
+    isIOS() {
+        return [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ].includes(navigator.platform)
+            // iPad on iOS 13 detection
+            || (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+    }
+
+    async componentDidMount(){
+        const logoWtm = new Image();
+        const frame = new Image();
+        const image = new Image();
+
+        let wtmUrl = "img/logo_wtm_brush.svg";
+        let frameUrl = "img/frame_gdg_avatar.svg";
+        let imageUrl = this.props.imageUrl;
+
+        logoWtm.setAttribute("data-src", wtmUrl);
+        frame.setAttribute("data-src", frameUrl);
+        image.setAttribute("data-src", imageUrl);
+
+        if (window.Worker && !this.isIOS()) {
+            let worker = new Worker("./WebWorkers/LoadHeavySvg.worker.js") ;//new WebWorker() as Worker;
+            if(worker == null)
+                return;
+
+            worker.postMessage(wtmUrl);
+            worker.postMessage(frameUrl);
+            worker.postMessage(imageUrl);
+
+            worker.addEventListener("message", event => {
+                const imageData = event.data;
+                const objectURL = URL.createObjectURL(imageData.blob);
+                switch (event.data.imageURL) {
+                    case wtmUrl:
+                        this.setState({logoWtm: logoWtm}, ()=>this.handleWorkerResponse(logoWtm, objectURL));
+                        break;
+                    case frameUrl:
+                        this.setState({frame: frame}, ()=>this.handleWorkerResponse(frame, objectURL));
+                        break;
+                    case imageUrl:
+                        this.setState({image: image}, ()=>this.handleWorkerResponse(image, objectURL));
+                        break;
+                }
+            });
+        }
+        else{
+            logoWtm.src = wtmUrl;
+            logoWtm.addEventListener('load', () => {
+                this.setState({logoWtm}, this.decreaseLoadingCounter);
+            });
+
+            frame.src = frameUrl;
+            frame.addEventListener('load', () => {
+                this.setState({frame}, this.decreaseLoadingCounter);
+            });
+
+            image.src = imageUrl;
+            image.addEventListener('load', () => {
+                this.setState({image}, this.decreaseLoadingCounter);
+            });
+        }
+    }
+
+    handleWorkerResponse(img: HTMLImageElement, objectURL: string){
+        img.addEventListener("load",  () => {
+            img.removeAttribute("data-src");
+            this.decreaseLoadingCounter();
+            URL.revokeObjectURL(objectURL);
+        });
+        img.setAttribute('src', objectURL);
+    }
+
+    decreaseLoadingCounter(){
+        this.setState({loadingCount: this.state.loadingCount - 1}, ()=>{
+            if(this.state.loadingCount <= 0)this.drawCanvas()
+        });
     }
 
     drawCanvas() {
@@ -84,7 +163,23 @@ class Canvas extends React.Component<Props, State> {
         this.applyText(ctx, canvas);
         this.applyLogoFrame(ctx, canvas);
 
-        this.props.setCanvasUrl(canvas.toDataURL());
+        canvas.toBlob((blob)=>{
+            this.props.setCanvasUrl(URL.createObjectURL(blob));
+        })
+    }
+
+    getSquarePlaceholderImage():string{
+        let canvas = document.createElement("Canvas") as HTMLCanvasElement;
+        canvas.width = canvas.height = 1200;
+        if(!canvas) return "";
+        let ctx = canvas.getContext("2d");
+        if (ctx == null) return "";
+
+        let image = new Image(1200, 1200);
+
+        ctx.drawImage(image, 0, 0);
+
+        return canvas.toDataURL();
     }
 
     applyEffects(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
@@ -95,7 +190,7 @@ class Canvas extends React.Component<Props, State> {
     applyText(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
         if (this.state.blackText) ctx.fillStyle = 'black';
         else ctx.fillStyle = 'white';
-        let textPadding = 16;
+        let textPadding = 32;
         let fontSize = 100;
         ctx.font = "500 " + fontSize + "px Open Sans";
         let gdgName = this.state.gdgName;
@@ -107,6 +202,7 @@ class Canvas extends React.Component<Props, State> {
         let frame = this.state.frame;
         let new_height = frame.height / frame.width * canvas.width;
         ctx.drawImage(frame, 0, canvas.height - new_height, canvas.width, new_height);
+
 
         if (this.state.wtm) {
             let WTMLogoSize = canvas.width / 4;
@@ -128,7 +224,6 @@ class Canvas extends React.Component<Props, State> {
         ctx.putImageData(imageData, 0, 0);
     }
 
-
     render() {
         const WtmToggled = (e: any, toggle: boolean) => {
             this.setState({wtm: toggle}, ()=>this.drawCanvas());
@@ -148,9 +243,14 @@ class Canvas extends React.Component<Props, State> {
             });
         };
         return (
-            <div className={"imageStylingPanel"}>
+            <div className={"imageStylingPanel"} >
                 <canvas width={1200} height={1200} id="imageCanvas"/>
-                <img alt="avatar preview" src={this.props.canvasUrl} id="imagePreview"/>
+
+                <div className={"avatarImageContainer"}>
+                    {this.props.canvasUrl
+                        ? <img alt="avatar preview" src={this.props.canvasUrl} id="imagePreview"/>
+                        : <Skeleton style={{maxWidth: "100%"}} variant="rect"><img alt="skeleton placeholder" src={this.state.squarePlaceholderUrl} className="imageFit"/></Skeleton>}
+                </div>
 
                 <div className={"stylePanel"}>
                     <TextField onChange={setName} label={"GDG chapter"} color={"primary"} variant="outlined" margin="dense" value={this.state.gdgName}/>

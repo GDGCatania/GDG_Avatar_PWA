@@ -7,7 +7,6 @@ export type CroppedRect = {
     unit?: 'px' | '%';
 }
 
-//todo check image type and required fields
 export type SignForm = {
     image?: string;
     firstName?: string;

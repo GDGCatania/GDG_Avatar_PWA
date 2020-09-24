@@ -8,12 +8,8 @@ import {
     setCropping,
     setImageUrl
 } from '../redux/modules/data';
-import {
-    Button
-} from '@material-ui/core';
 import {RootState} from "../redux/configureStore";
 import '../style/App.css'
-import 'react-image-crop/dist/ReactCrop.css';
 
 
 type ComponentProps = {
@@ -49,14 +45,12 @@ class CanvasPanel extends React.Component<Props, State> {
 
 
     render() {
-        /**
-         * only for edge pre-chromium other browser use href params
-         * */
+        //only for edge pre-chromium other browser use href params
         const downloadImg = () => {
+            let filename = "avatar" + Math.round((new Date()).getTime() / 1000) + ".png";// Produces a unique file gdgName every second.
             if (window.navigator.userAgent.indexOf("Edge") > -1){
-                let drawingFileName = "avatar" + Math.round((new Date()).getTime() / 1000) + ".png"; // Produces a unique file gdgName every second.
                 // @ts-ignore
-                window.navigator.msSaveBlob(this.props.canvas.msToBlob(), drawingFileName); // Save the user's drawing to a file.
+                window.navigator.msSaveBlob(this.props.canvas.msToBlob(), filename); // Save the user's drawing to a file.
             } // saveCanvas
         }
 
@@ -72,10 +66,14 @@ class CanvasPanel extends React.Component<Props, State> {
             case 0:
                 return (
                     <div>
+                        <p>Upload an image</p>
                         <div id="masterButton">
-                            <UploadIcon color="primary"/>
-                            <p>UPLOAD IMAGE</p>
-                            <input id="inputImage" onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
+                            <label className="custom-file-upload">
+                                <input id="inputImage" name={"image"} onChange={imgUpload} type="file" accept="image/*,capture=camera"/>
+                                <div style={{backgroundImage: `url(${this.props.imageUrl ?? ""})`, border: (this.props.imageUrl)?"initial":"1px solid rgba(0, 0, 0, 0.23)"}} >
+                                    {!this.props.imageUrl && <UploadIcon fontSize="large" style={{margin: "auto"}} color={"primary"}/>}
+                                </div>
+                            </label>
                         </div>
                         <p>Recommended resolution for your photo is 1200x1200.</p>
                     </div>
@@ -83,18 +81,28 @@ class CanvasPanel extends React.Component<Props, State> {
             case 1:
                 return (
                     <div>
-                        <p>Crop image</p>
+                        <p>Crop the image</p>
                         <Cropper/>
                     </div>
                 );
             case 2:
-                return <Canvas/>;
+                return (
+                    <div>
+                        <p>Customize</p>
+                        <Canvas/>
+                    </div>
+                    );
             case 3:
                 return (
-                    <div id="masterButton">
-                    <Button href={this.props.canvasUrl} variant="contained" disableElevation startIcon={<DownloadIcon/>} onClick={downloadImg} color="primary" download={"avatar" + Math.round((new Date()).getTime() / 1000) + ".png"} id="download">
-                        Download Avatar!
-                    </Button>
+                    <div>
+                        <p>Download the Avatar!</p>
+                        <div id="masterButton" style={{width: "max-content"}}>
+                            <a id="download" href={this.props.canvasUrl} onClick={downloadImg} download={"avatar" + Math.round((new Date()).getTime() / 1000) + ".png"}/>
+                            <label className="custom-file-upload">
+                                <img alt={"Avatar download preview"} src={this.props.canvasUrl} style={{filter: "blur(1px)",objectFit:"contain", maxHeight: "100%", maxWidth: "100%", border: (this.props.canvasUrl)?"initial":"1px solid rgba(0, 0, 0, 0.23)"}} />
+                                <div style={{position: "absolute", backgroundColor: "#00000033"}}><DownloadIcon style={{margin: "auto"}} fontSize="large" color={"primary"}/></div>
+                            </label>
+                        </div>
                     </div>
                 );
             default:

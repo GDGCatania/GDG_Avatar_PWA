@@ -6,13 +6,16 @@ type DesktopProps = {
     stepCount: number,
     stepIndex: number,
     handlePrev: any,
-    handleNext: any
+    handleNext: any,
+    finalButtonText?: string
 }
 
 type MobileProps = {
+    stepCount: number,
     stepIndex: number,
     handlePrev: any,
-    handleNext: any
+    handleNext: any,
+    finalButtonText?: string
 }
 
 const style = {
@@ -21,7 +24,8 @@ const style = {
     justifyContent: "space-between",
     left: 0,
     bottom: 0,
-    zIndex: 10
+    zIndex: 10,
+    backgroundColor: "#eee",
 } as any;
 
 function getStepIcon(stepCount: number){
@@ -30,6 +34,7 @@ function getStepIcon(stepCount: number){
     for (let i = 0; i < stepCount; i++) {
         steps.push(
             <BottomNavigationAction
+                disabled
                 key={i}
                 icon={<LensIcon/>}
                 style={{flex: "0 0 0", margin: "auto"}}
@@ -41,7 +46,7 @@ function getStepIcon(stepCount: number){
 }
 
 export function BottomBarDesktop(props: DesktopProps){
-    return <BottomNavigation style={style} value={props.stepIndex + 1}>
+    return <BottomNavigation className="unselectable" style={style} value={props.stepIndex + 1}>
         <Button
             onClick={props.handlePrev}
             style={{flex: "1 0 0", margin: "auto"}}>
@@ -54,13 +59,13 @@ export function BottomBarDesktop(props: DesktopProps){
             color="primary"
             style={{flex: "1 0 0", margin: "auto"}}
             onClick={props.handleNext}>
-            {props.stepIndex === 2 ? 'Finish' : (props.stepIndex === 3) ? 'Restart' : 'Next'}
+            {props.stepIndex === props.stepCount-2 ? 'Finish' : (props.stepIndex === props.stepCount-1) ? props.finalButtonText??"Restart" : 'Next'}
         </Button>
     </BottomNavigation>
 }
 
 export function BottomBarMobile(props: MobileProps){
-    return <BottomNavigation style={style} value={props.stepIndex + 1}>
+    return <BottomNavigation className="unselectable" style={style} value={props.stepIndex + 1}>
         <Button
             onClick={props.handlePrev}
             style={{flex: "1 0 0", margin: "auto"}}>
@@ -70,7 +75,7 @@ export function BottomBarMobile(props: MobileProps){
             color="primary"
             style={{flex: "1 0 0", margin: "auto"}}
             onClick={props.handleNext}>
-            {props.stepIndex === 2 ? 'Finish' : (props.stepIndex === 3) ? 'Restart' : 'Next'}
+            {props.stepIndex === props.stepCount-2 ? 'Finish' : (props.stepIndex === props.stepCount-1) ? props.finalButtonText??"Restart" : 'Next'}
         </Button>
     </BottomNavigation>
 }
