@@ -65,7 +65,7 @@ class App extends React.Component<Props> {
                     <Snackbar
                         open={this.props.refresh}
                         style={(isBrowser) ? {padding: 8} : {}}
-                        action={<Button color="primary" onClick={()=> location.reload()}>Refresh</Button>}
+                        action={<Button color="primary" onClick={()=> window.location.reload()}>Refresh</Button>}
                         message="New content is available, please refresh."
                         autoHideDuration={4000}
                         onClose={(event: object, reason: string) => this.props.notifyRefresh(false)}
