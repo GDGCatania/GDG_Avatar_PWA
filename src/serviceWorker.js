@@ -77,6 +77,8 @@ function registerValidSW(swUrl, config) {
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
               );
+              //install the new worker right away, don't wait nothing
+              installingWorker.postMessage({type: 'SKIP_WAITING'});
 			  store.dispatch(notifyRefresh(true));
 			  
               // Execute callback
