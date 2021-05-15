@@ -74,11 +74,11 @@ class SignForm extends React.Component<Props, State> {
                                 <span style={{color: "#fbbc05"}}>•&nbsp;</span>
 
                                 <span className="horizontalList">
-                                    {user.phoneNumber && <span><a style={linkStyle} href={"tel:"+user.phoneNumber}>{user.phoneNumber}</a>{linkSeparation}</span>}
-                                    {user.telegram && <span><a style={linkStyle} href={user.telegram}>Telegram</a>{linkSeparation}</span>}
-                                    {user.twitter && <span><a style={linkStyle} href={user.twitter}>Twitter</a>{linkSeparation}</span>}
-                                    {user.facebook && <span><a style={linkStyle} href={user.facebook}>Facebook</a>{linkSeparation}</span>}
-                                    {user.youtube && <span><a style={linkStyle} href={user.youtube}>Youtube</a>{linkSeparation}</span>}
+                                    {user.phoneNumber && <span><a style={linkStyle} href={"tel:"+user.phoneNumber} target="_blank" rel="noopener noreferrer">{user.phoneNumber}</a>{linkSeparation}</span>}
+                                    {user.telegram && <span><a style={linkStyle} href={user.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>{linkSeparation}</span>}
+                                    {user.twitter && <span><a style={linkStyle} href={user.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>{linkSeparation}</span>}
+                                    {user.facebook && <span><a style={linkStyle} href={user.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>{linkSeparation}</span>}
+                                    {user.youtube && <span><a style={linkStyle} href={user.youtube} target="_blank" rel="noopener noreferrer">Youtube</a>{linkSeparation}</span>}
                                 </span>
                             </td>
                         </tr>
