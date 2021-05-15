@@ -37,8 +37,10 @@ class SignForm extends React.Component<Props, State> {
     }
 
     componentDidMount(){
-        let lastSpan = document.getElementsByClassName("horizontalList")[0].lastChild as HTMLElement;
-        if (lastSpan.innerHTML.endsWith(linkSeparation))
+        let hList = document.getElementsByClassName("horizontalList")[0];
+        if(!hList || hList.childElementCount === 0) return true;
+        let lastSpan = hList.lastChild as HTMLElement;
+        if (lastSpan && lastSpan.innerHTML.endsWith(linkSeparation))
             lastSpan.innerHTML = lastSpan.innerHTML.substr(0, lastSpan.innerHTML.lastIndexOf(linkSeparation));
     }
 
