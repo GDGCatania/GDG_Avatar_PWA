@@ -1,5 +1,5 @@
-# GDG-Avatar
-This tool allows user to create GDG (Google Developer Group) avatar and signature.
+# GDG/WTM Avatar and Sign generator
+A tool for creating GDG (Google Developer Group) and WTM (Women Techmakers) avatars and email signatures.
 
 ## Install
 
